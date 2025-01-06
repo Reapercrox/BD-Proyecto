@@ -1,14 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Beans/Customizer.java to edit this template
- */
 package View;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
- * @author memis
+ * @author GUILLERMO COTO ALVAREZ
  */
-public class User_access extends javax.swing.JPanel implements java.beans.Customizer {
+public class User_access extends javax.swing.JFrame implements java.beans.Customizer {
     
     private Object bean;
 
@@ -16,7 +16,12 @@ public class User_access extends javax.swing.JPanel implements java.beans.Custom
      * Creates new customizer User_access
      */
     public User_access() {
+        setTitle("User Access");
+        setSize(510,400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         initComponents();
+        
     }
     
     public void setObject(Object bean) {
@@ -31,54 +36,36 @@ public class User_access extends javax.swing.JPanel implements java.beans.Custom
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Access_frame = new javax.swing.JInternalFrame();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        username_access_tbox = new javax.swing.JTextField();
-        password_access_tbox = new javax.swing.JTextField();
-        sign_in_bt = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         sign_up_bt = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        sign_in_bt = new javax.swing.JButton();
+        password_access_tbox = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        username_access_tbox = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-
-        setLayout(new java.awt.BorderLayout());
-
-        Access_frame.setBackground(new java.awt.Color(204, 204, 255));
-        Access_frame.setClosable(true);
-        Access_frame.setIconifiable(true);
-        Access_frame.setTitle("Udrive carpooling");
-        Access_frame.setMinimumSize(new java.awt.Dimension(104, 40));
-        Access_frame.setPreferredSize(new java.awt.Dimension(617, 440));
-        Access_frame.setVerifyInputWhenFocusTarget(false);
-        Access_frame.setVisible(true);
-        Access_frame.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("News701 BT", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 204));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setLabelFor(Access_frame);
-        jLabel1.setText("Udrive Carpooling");
-        Access_frame.getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 605, -1));
+        jLabel1.setText("UniDrive Carpooling");
 
-        jLabel2.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
-        jLabel2.setText("Username:");
-        Access_frame.getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 80, -1));
-
-        jLabel3.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
-        jLabel3.setText("Password:");
-        Access_frame.getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 80, -1));
-
-        username_access_tbox.addActionListener(new java.awt.event.ActionListener() {
+        sign_up_bt.setBackground(new java.awt.Color(242, 242, 242));
+        sign_up_bt.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 10)); // NOI18N
+        sign_up_bt.setForeground(new java.awt.Color(0, 0, 204));
+        sign_up_bt.setText("Sign Up");
+        sign_up_bt.setToolTipText("");
+        sign_up_bt.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        sign_up_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        sign_up_bt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                username_access_tboxActionPerformed(evt);
+                sign_up_btActionPerformed(evt);
             }
         });
-        Access_frame.getContentPane().add(username_access_tbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 300, -1));
-        username_access_tbox.getAccessibleContext().setAccessibleName("username_access_tbox");
 
-        Access_frame.getContentPane().add(password_access_tbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 300, -1));
-        password_access_tbox.getAccessibleContext().setAccessibleName("password_access_tbox");
+        jLabel4.setFont(new java.awt.Font("Segoe UI Light", 2, 10)); // NOI18N
+        jLabel4.setText("Not registered yet? ->");
 
         sign_in_bt.setBackground(new java.awt.Color(0, 0, 204));
         sign_in_bt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -89,28 +76,86 @@ public class User_access extends javax.swing.JPanel implements java.beans.Custom
                 sign_in_btActionPerformed(evt);
             }
         });
-        Access_frame.getContentPane().add(sign_in_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 80, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI Light", 2, 10)); // NOI18N
-        jLabel4.setText("Not registered yet? ->");
-        Access_frame.getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, -1, 20));
+        jLabel3.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        jLabel3.setText("Password:");
 
-        sign_up_bt.setBackground(new java.awt.Color(242, 242, 242));
-        sign_up_bt.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 10)); // NOI18N
-        sign_up_bt.setForeground(new java.awt.Color(0, 0, 204));
-        sign_up_bt.setText("Sign Up");
-        sign_up_bt.setToolTipText("");
-        sign_up_bt.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        sign_up_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Access_frame.getContentPane().add(sign_up_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        jLabel2.setText("Username:");
+
+        username_access_tbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                username_access_tboxActionPerformed(evt);
+            }
+        });
 
         jLabel5.setForeground(new java.awt.Color(255, 0, 51));
         jLabel5.setText("%LOGO%");
-        Access_frame.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, -1, 20));
 
-        add(Access_frame, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 111, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(10, 10, 10)
+                                        .addComponent(username_access_tbox, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(10, 10, 10)
+                                        .addComponent(password_access_tbox, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(sign_in_bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(sign_up_bt)))
+                                .addGap(116, 116, 116))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(285, 285, 285))))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(71, 71, 71)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(username_access_tbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(password_access_tbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(sign_in_bt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sign_up_bt))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+
+        password_access_tbox.getAccessibleContext().setAccessibleName("password_access_tbox");
+        username_access_tbox.getAccessibleContext().setAccessibleName("username_access_tbox");
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    
     private void username_access_tboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_username_access_tboxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_username_access_tboxActionPerformed
@@ -119,9 +164,14 @@ public class User_access extends javax.swing.JPanel implements java.beans.Custom
         // TODO add your handling code here:
     }//GEN-LAST:event_sign_in_btActionPerformed
 
+    private void sign_up_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sign_up_btActionPerformed
+        User_registry registry = new User_registry();
+        registry.setVisible(true);
+    }//GEN-LAST:event_sign_up_btActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JInternalFrame Access_frame;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -132,4 +182,12 @@ public class User_access extends javax.swing.JPanel implements java.beans.Custom
     private javax.swing.JButton sign_up_bt;
     private javax.swing.JTextField username_access_tbox;
     // End of variables declaration//GEN-END:variables
+
+        public static void main(String[] args) {
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    new User_access().setVisible(true);
+                }
+            });
+        }
 }
