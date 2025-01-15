@@ -4,6 +4,8 @@
  */
 package Models;
 
+import java.time.*;
+
 /**
  *
  * @author memis
@@ -29,6 +31,8 @@ public class Person {
     private String type_id;
     private String id_number;
     private String accepts_tANDc;
+    private String driver_license;
+    private String expiration_date;
     
     public Person(String name, String second_name, String last_name, String second_last_name, String birth_day, String gender, 
                   String institution, String email, String password, String country, String province, String municipality,
