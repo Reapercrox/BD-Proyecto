@@ -9,8 +9,8 @@ CREATE OR REPLACE PROCEDURE insert_new_person(
     p_accepts_t_and_c NUMBER,
     p_id_gender_fk NUMBER,
     p_id_center_fk NUMBER,
-    p_id_type_id_fk NUMBER,
-    p_id_personal NUMBER,
+    p_type_id NUMBER,
+    p_personal_id NUMBER,
     p_id_app_fk NUMBER,
     p_country NVARCHAR2,
     p_province NVARCHAR2,
@@ -126,11 +126,15 @@ BEGIN
         INSERT INTO personal_id(
             id_personal,
             type_id,
-            number_id
+            number_id,
+            id_person_fk
         )
         VALUES(
             s_persona_id.nextval,
-            
+            p_type_id,
+            p_personal_id,
+            s_person.currval
+        );
     END;
     
     COMMIT;
