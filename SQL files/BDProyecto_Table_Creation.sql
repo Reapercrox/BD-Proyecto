@@ -119,7 +119,8 @@ CREATE TABLE personal_id
 (
     id_personal NUMBER(6),
     type_id NVARCHAR2(30) CONSTRAINT type_id_nn NOT NULL,
-    number_id NVARCHAR2(15) CONSTRAINT number_id_nn NOT NULL
+    number_id NVARCHAR2(15) CONSTRAINT number_id_nn NOT NULL,
+    id_person_fk NUMBER(6) CONSTRAINT id_person_fk_nn NOT NULL
 );
 
 ALTER TABLE personal_id
@@ -186,9 +187,9 @@ USING INDEX
 TABLESPACE PROJ_Ind PCTFREE 20
 STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
 
-ALTER TABLE person
+ALTER TABLE personal_id
 ADD
-CONSTRAINT fk_person_personalID FOREIGN KEY (id_personal_fk) REFERENCES personal_id(id_personal);
+CONSTRAINT fk_person_personalID FOREIGN KEY (id_person_fk) REFERENCES person(id_person);
 
 ALTER TABLE person
 ADD

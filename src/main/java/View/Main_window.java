@@ -1,29 +1,56 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.util.Stack;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author memis
  */
 public class Main_window extends javax.swing.JFrame {
+    
+    private static Stack<JPanel> panelStack = new Stack<>();
 
     
     public static void render_panel(JPanel panel){
-        panel.setSize(600,500);
-        panel.setLocation(0,0);
+        
+        if (content_panel.getComponentCount() > 0) {
+        Component currentComponent = content_panel.getComponent(0);
+            if (currentComponent instanceof JPanel) {
+                panelStack.push((JPanel) currentComponent); // Push the current panel onto the stack
+            }
+        }
+        
+        
         content_panel.removeAll();                             
-        content_panel.add(panel, BorderLayout.CENTER); 
+        content_panel.add(panel,BorderLayout.CENTER); 
         content_panel.revalidate();
         content_panel.repaint();
+        
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(content_panel);
+        if (frame != null) {
+            frame.pack();
+        }
     }
-    /**
-     * Creates new form Login
-     */
+    
+    public static void goBack() {
+         if (!panelStack.isEmpty()) {
+            JPanel previousPanel = panelStack.pop(); // Pop the last panel from the stack
+            render_panel(previousPanel); // Render the previous panel
+        } else {
+            System.out.println("No previous panel to go back to."); // Debugging statement
+        }
+    }
+
     public Main_window() {
         initComponents();
         this.setTitle("UniDrive_carpooling");
+        content_panel.setLayout(new BorderLayout());
         JPanel login_panel = new Login_panel();
         render_panel(login_panel);
     }
@@ -50,7 +77,7 @@ public class Main_window extends javax.swing.JFrame {
         content_panel.setLayout(content_panelLayout);
         content_panelLayout.setHorizontalGroup(
             content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         content_panelLayout.setVerticalGroup(
             content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -61,16 +88,16 @@ public class Main_window extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(content_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(content_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(content_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(content_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        content_panel.getAccessibleContext().setAccessibleName("content_panel");
+        content_panel.getAccessibleContext().setAccessibleName("");
 
         getAccessibleContext().setAccessibleName("Login");
 

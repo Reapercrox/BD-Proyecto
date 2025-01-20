@@ -59,7 +59,7 @@ public class Database_connection {
         public static Response insertPerson(Person person){
         // Para construir una llamada parametrizada, coloque el nombre del procedimiento
         // y entre los paréntesis van símbolos de pregunta '?', que son los parámetros del procedimiento.
-        String statement = "{call insert_person(?,?,?)}";
+        String statement = "{call insert_person(?,?,?,?)}";
         Connection DBconnection = getConnection();
         try {
             

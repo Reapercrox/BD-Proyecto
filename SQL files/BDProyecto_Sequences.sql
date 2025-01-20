@@ -57,3 +57,51 @@ NOCACHE
 NOCYCLE;
 
 --------------------------------------------------------------------------------
+
+CREATE SEQUENCE s_address
+START WITH 0
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 10000000
+NOCACHE
+NOCYCLE;
+
+--------------------------------------------------------------------------------
+
+CREATE SEQUENCE s_district
+START WITH 0
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 10000000
+NOCACHE
+NOCYCLE;
+
+--------------------------------------------------------------------------------
+
+CREATE SEQUENCE s_municipality
+START WITH 0
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 10000000
+NOCACHE
+NOCYCLE;
+
+--------------------------------------------------------------------------------
+
+CREATE SEQUENCE s_province
+START WITH 0
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 10000000
+NOCACHE
+NOCYCLE;
+
+--------------------------------------------------------------------------------
+
+CREATE SEQUENCE s_country
+START WITH 0
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 10000000
+NOCACHE
+NOCYCLE;
