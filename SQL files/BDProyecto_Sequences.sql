@@ -105,3 +105,25 @@ MINVALUE 0
 MAXVALUE 10000000
 NOCACHE
 NOCYCLE;
+
+--------------------------------------------------------------------------------
+
+CREATE SEQUENCE s_passenger
+START WITH 0
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 10000000
+NOCACHE
+NOCYCLE;
+
+--------------------------------------------------------------------------------
+
+CREATE SEQUENCE s_admin
+START WITH 0
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 10000000
+NOCACHE
+NOCYCLE;
+
+--------------------------------------------------------------------------------

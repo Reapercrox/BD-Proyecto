@@ -59,7 +59,7 @@ public class Database_connection {
         public static Response insertPerson(Person person){
         // Para construir una llamada parametrizada, coloque el nombre del procedimiento
         // y entre los paréntesis van símbolos de pregunta '?', que son los parámetros del procedimiento.
-        String statement = "{call insert_person(?,?,?,?)}";
+        String statement = "{call insert_new_person(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
         Connection DBconnection = getConnection();
         try {
             
@@ -70,10 +70,30 @@ public class Database_connection {
             // Tome en cuenta que los tipos de datos que inserte aquí, deben coincidir 
             // con los tipos de datos que recibe el procedimiento de la base de datos.
             call.setString(1, person.getFirst_name());
-            call.setString(2, person.getLast_name());
+            call.setString(2, person.getSecond_name());
+            call.setString(3,person.getLast_name());
+            call.setString(4, person.getSecond_last_name());
+            call.setString(5, person.getBirthday());
+            call.setString(6, person.getInstitutional_email());
+            call.setString(7, person.getPassword());
+            call.setInt(8,person.getAccepts_tANDc());
+            call.setInt(9,person.getGender());
+            call.setInt(10, person.getInstitution());
+            call.setInt(11,person.getType_id());
+            call.setString(12,person.getId_number());
+            call.setInt(13, 0);
+            call.setInt(14, person.getCountry());
+            call.setInt(15, person.getProvince());
+            call.setString(16, person.getMunicipality());
+            call.setString(17, person.getDistrict());
+            call.setString(18, person.getAddress());
+            call.setString(19, person.getZip_code());
+            call.setInt(20, person.getDriver_or_passenger());
+            call.setString(21, person.getDriver_license());
+            call.setString(22, person.getExpiration_date());
             // Los parámetros de salida son parametros que se pueden consultar en el objeto llamada
             // despues de ejecutar la llamada. Son útiles para retornar códigos de error o consultas.
-            call.registerOutParameter(3, java.sql.Types.NUMERIC);
+            call.registerOutParameter(23, java.sql.Types.NUMERIC);
             
             // Se ejecuta la llamada.
             call = insertData(call);
@@ -85,7 +105,7 @@ public class Database_connection {
             // Se obtiene el código de respuesta del procedimiento (para verificar si hubo algún error en la ejecución).
             // Este código lo puede utilizar para verificar que tipo de error hubo, y así poder generar un mensaje de error
             // claro para el usuario sobre el error que sucedió.
-            int result_code = call.getInt(3);
+            int result_code = call.getInt(23);
             
             // Se cierra la conexión con la base de datos.
             // ES IMPORTANTE QUE SIEMPRE QUE SE ABRA UNA CONEXIÓN LA CIERRE, PUES ESTAS NO SE CIERRAN 
@@ -100,7 +120,7 @@ public class Database_connection {
             }
             return new Response(Response_code.SUCCESS, "Persona registrada exitosamente.");
         } catch (SQLException e) {
-            return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo.");
+            return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo. " + e.getMessage());
         } 
     }
 }

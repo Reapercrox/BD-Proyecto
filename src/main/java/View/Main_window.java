@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.util.Stack;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -15,6 +16,7 @@ import javax.swing.SwingUtilities;
 public class Main_window extends javax.swing.JFrame {
     
     private static Stack<JPanel> panelStack = new Stack<>();
+    private JScrollPane scrollPane;
 
     
     public static void render_panel(JPanel panel){
@@ -51,6 +53,15 @@ public class Main_window extends javax.swing.JFrame {
         initComponents();
         this.setTitle("UniDrive_carpooling");
         content_panel.setLayout(new BorderLayout());
+        
+        scrollPane = new JScrollPane(content_panel); // Create JScrollPane and wrap content_panel
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        // Set the layout for the main frame
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(scrollPane, BorderLayout.CENTER);
+        
         JPanel login_panel = new Login_panel();
         render_panel(login_panel);
     }

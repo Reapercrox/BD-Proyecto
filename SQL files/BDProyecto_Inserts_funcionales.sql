@@ -104,4 +104,27 @@ INSERT INTO municipality(id_municipality, municipality_name, id_province_fk) VAL
 INSERT INTO municipality(id_municipality, municipality_name, id_province_fk) VALUES (s_municipality.nextval, 'QUEPOS', 6);
 INSERT INTO municipality(id_municipality, municipality_name, id_province_fk) VALUES (s_municipality.nextval, 'COBANO', 6);
 INSERT INTO municipality(id_municipality, municipality_name, id_province_fk) VALUES (s_municipality.nextval, 'LEPANTO', 6);
-INSERT INTO municipality(id_municipality, municipality_name, id_province_fk) VALUES (s_municipality.nextval, 'PAQUERA', 6);       
+INSERT INTO municipality(id_municipality, municipality_name, id_province_fk) VALUES (s_municipality.nextval, 'PAQUERA', 6);
+INSERT INTO municipality(id_municipality, municipality_name, id_province_fk) VALUES (s_municipality.nextval, 'CARTAGO', 3);
+
+
+
+INSERT INTO gender(id_gender, gender) VALUES (s_gender.nextval, 'MASCULINO');
+INSERT INTO gender(id_gender, gender) VALUES (s_gender.nextval, 'FEMENINO');
+INSERT INTO gender(id_gender, gender) VALUES (s_gender.nextval, 'OTRO');
+
+INSERT INTO educational_center(id_center, center_name) VALUES (s_center.nextval, 'TEC');
+INSERT INTO educational_center(id_center, center_name) VALUES (s_center.nextval, 'UCR');
+INSERT INTO educational_center(id_center, center_name) VALUES (s_center.nextval, 'UNA');
+INSERT INTO educational_center(id_center, center_name) VALUES (s_center.nextval, 'UNED');
+
+INSERT INTO carpool_app(id_app, app_name, t_and_c)
+VALUES(
+    s_app.nextval,
+    'UniDrive Carpooling',
+    'Welcome to our Carpool App, designed solely for educational purposes as part of a school project. By using this app, you acknowledge that it is not intended for commercial use and is meant to facilitate learning and collaboration among users.
+
+    All data collected during your use of the app will be stored temporarily and will be erased upon project completion. We prioritize your privacy and ensure that no personal information will be retained beyond the duration of this project.
+
+    By participating, you agree to use the app responsibly and understand that any misuse may result in removal from the project. Thank you for your cooperation and support in our educational endeavor!'
+    );

@@ -138,3 +138,42 @@ ADD last_updated_by NVARCHAR2(10);
 
 -------------------------------Desde aqui---------------------------------------
 
+ALTER TABLE driver
+ADD creation_date DATE;
+
+ALTER TABLE driver
+ADD created_by NVARCHAR2(10);
+
+ALTER TABLE driver
+ADD update_date DATE;
+
+ALTER TABLE driver
+ADD last_updated_by NVARCHAR2(10);
+
+--------------------------------------------------------------------------------
+
+ALTER TABLE passenger
+ADD creation_date DATE;
+
+ALTER TABLE passenger
+ADD created_by NVARCHAR2(10);
+
+ALTER TABLE passenger
+ADD update_date DATE;
+
+ALTER TABLE passenger
+ADD last_updated_by NVARCHAR2(10);
+
+--------------------------------------------------------------------------------
+
+ALTER TABLE admin_info
+ADD creation_date DATE;
+
+ALTER TABLE admin_info
+ADD created_by NVARCHAR2(10);
+
+ALTER TABLE admin_info
+ADD update_date DATE;
+
+ALTER TABLE admin_info
+ADD last_updated_by NVARCHAR2(10);

@@ -130,3 +130,68 @@ BEGIN
     END IF;
 END beforeInsertUpdatePassword;
 
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER ADM.beforeInsertDriver
+BEFORE INSERT
+ON ADM.driver
+FOR EACH ROW
+BEGIN
+    :new.created_by := USER;
+    :new.creation_date := SYSDATE;
+END beforeInsertDriver;
+
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER ADM.beforeUpdateDriver
+BEFORE UPDATE
+ON ADM.driver
+FOR EACH ROW
+BEGIN
+    :new.last_updated_by := USER;
+    :new.update_date := SYSDATE;
+END beforeUpdateDriver;
+
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER ADM.beforeInsertPassenger
+BEFORE INSERT
+ON ADM.passenger
+FOR EACH ROW
+BEGIN
+    :new.created_by := USER;
+    :new.creation_date := SYSDATE;
+END beforeInsertPassenger;
+
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER ADM.beforeUpdatePassenger
+BEFORE UPDATE
+ON ADM.passenger
+FOR EACH ROW
+BEGIN
+    :new.last_updated_by := USER;
+    :new.update_date := SYSDATE;
+END beforeUpdatePassenger;
+
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER ADM.beforeInsertAdmin
+BEFORE INSERT
+ON ADM.admin_info
+FOR EACH ROW
+BEGIN
+    :new.created_by := USER;
+    :new.creation_date := SYSDATE;
+END beforeInsertAdmin;
+
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER ADM.beforeUpdateAdmin
+BEFORE UPDATE
+ON ADM.admin_info
+FOR EACH ROW
+BEGIN
+    :new.last_updated_by := USER;
+    :new.update_date := SYSDATE;
+END beforeUpdateAdmin;

@@ -18,45 +18,72 @@ public class Person {
     private String second_last_name;
     private String birthday;
     private String institutional_email;
-    private String gender;
-    private String institution;
     private String password;
-    private String country;
-    private String province;
+    private int accepts_tANDc;
+    private int gender;
+    private int institution;
+    private int type_id;
+    private String id_number;
+    private int carpoolApp;
+    private int country;
+    private int province;
     private String district;
     private String municipality;
     private String address;
-    private String picture;/*Still thinking how to handle this*/
-    private String driver_or_passenger;
-    private String type_id;
-    private String id_number;
-    private String accepts_tANDc;
+    private String zip_code;
+    private int driver_or_passenger;
     private String driver_license;
     private String expiration_date;
-    
-    public Person(String name, String second_name, String last_name, String second_last_name, String birth_day, String gender, 
-                  String institution, String email, String password, String country, String province, String municipality,
-                  String district, String address, String d_or_p, String type_id, String id_number, String accepts){
-        
-        this.first_name = name;
+
+    public Person(String first_name, String second_name, String last_name, String second_last_name, String birthday, String institutional_email, String password, int accepts_tANDc, int gender, int institution, int type_id, String id_number, int carpoolApp, int country, int province, String district, String municipality, String address, String zip_code, int driver_or_passenger) {
+        this.first_name = first_name;
         this.second_name = second_name;
         this.last_name = last_name;
         this.second_last_name = second_last_name;
-        this.birthday = birth_day;
+        this.birthday = birthday;
+        this.institutional_email = institutional_email;
+        this.password = password;
+        this.accepts_tANDc = accepts_tANDc;
         this.gender = gender;
         this.institution = institution;
-        this.institutional_email = email;
-        this.password = password;
-        this.country = country;
-        this.province = province;
-        this.municipality = municipality;
-        this.district = district;
-        this.address = address;
-        this.driver_or_passenger = d_or_p;
         this.type_id = type_id;
         this.id_number = id_number;
-        this.accepts_tANDc = accepts;
+        this.carpoolApp = carpoolApp;
+        this.country = country;
+        this.province = province;
+        this.district = district;
+        this.municipality = municipality;
+        this.address = address;
+        this.zip_code = zip_code;
+        this.driver_or_passenger = driver_or_passenger;
     }
+
+    public Person(String first_name, String second_name, String last_name, String second_last_name, String birthday, String institutional_email, String password, int accepts_tANDc, int gender, int institution, int type_id, String id_number, int carpoolApp, int country, int province, String district, String municipality, String address, String zip_code, int driver_or_passenger, String driver_license, String expiration_date) {
+        this.first_name = first_name;
+        this.second_name = second_name;
+        this.last_name = last_name;
+        this.second_last_name = second_last_name;
+        this.birthday = birthday;
+        this.institutional_email = institutional_email;
+        this.password = password;
+        this.accepts_tANDc = accepts_tANDc;
+        this.gender = gender;
+        this.institution = institution;
+        this.type_id = type_id;
+        this.id_number = id_number;
+        this.carpoolApp = carpoolApp;
+        this.country = country;
+        this.province = province;
+        this.district = district;
+        this.municipality = municipality;
+        this.address = address;
+        this.zip_code = zip_code;
+        this.driver_or_passenger = driver_or_passenger;
+        this.driver_license = driver_license;
+        this.expiration_date = expiration_date;
+    }
+
+        
 
     public String getFirst_name() {
         return first_name;
@@ -106,19 +133,19 @@ public class Person {
         this.institutional_email = institutional_email;
     }
 
-    public String getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
-    public String getInstitution() {
+    public int getInstitution() {
         return institution;
     }
 
-    public void setInstitution(String institution) {
+    public void setInstitution(int institution) {
         this.institution = institution;
     }
 
@@ -130,19 +157,19 @@ public class Person {
         this.password = password;
     }
 
-    public String getCountry() {
+    public int getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(int country) {
         this.country = country;
     }
 
-    public String getProvince() {
+    public int getProvince() {
         return province;
     }
 
-    public void setProvince(String province) {
+    public void setProvince(int province) {
         this.province = province;
     }
 
@@ -170,19 +197,27 @@ public class Person {
         this.address = address;
     }
 
-    public String getDriver_or_passenger() {
+    public String getZip_code() {
+        return zip_code;
+    }
+
+    public void setZip_code(String zip_code) {
+        this.zip_code = zip_code;
+    }
+
+    public int getDriver_or_passenger() {
         return driver_or_passenger;
     }
 
-    public void setDriver_or_passenger(String driver_or_passenger) {
+    public void setDriver_or_passenger(int driver_or_passenger) {
         this.driver_or_passenger = driver_or_passenger;
     }
 
-    public String getType_id() {
+    public int getType_id() {
         return type_id;
     }
 
-    public void setType_id(String type_id) {
+    public void setType_id(int type_id) {
         this.type_id = type_id;
     }
 
@@ -194,13 +229,32 @@ public class Person {
         this.id_number = id_number;
     }
 
-    public String getAccepts_tANDc() {
+    public int getAccepts_tANDc() {
         return accepts_tANDc;
     }
 
-    public void setAccepts_tANDc(String accepts_tANDc) {
+    public void setAccepts_tANDc(int accepts_tANDc) {
         this.accepts_tANDc = accepts_tANDc;
     }
+
+    public String getDriver_license() {
+        return driver_license;
+    }
+
+    public void setDriver_license(String driver_license) {
+        this.driver_license = driver_license;
+    }
+
+    public String getExpiration_date() {
+        return expiration_date;
+    }
+
+    public void setExpiration_date(String expiration_date) {
+        this.expiration_date = expiration_date;
+    }
+    
+
+    
     
     
 }
