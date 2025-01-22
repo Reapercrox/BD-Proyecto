@@ -108,7 +108,7 @@ END beforeUpdateApp;
 
 --------------------------------------------------------------------------------
 
-CREATE OR REPLACE TRIGGER ADM.beforeInsertUpdatePassword
+create or replace TRIGGER ADM.beforeInsertUpdatePassword
 BEFORE INSERT OR UPDATE
 ON ADM.person
 FOR EACH ROW
@@ -116,13 +116,24 @@ DECLARE
     o_hash RAW(32);
 BEGIN
     IF INSERTING THEN
-        :NEW.password_salt := DBMS_RANDOM.STRING('P', FLOOR(DBMS_RANDOM.VALUE(40, 61)));
-        o_hash := DBMS_CRYPTO.HASH(UTL_I18N.STRING_TO_RAW(:NEW.password_salt || RTRIM(:NEW.password_hash), 'AL32UTF8'), DBMS_CRYPTO.HASH_SH1);
+        :NEW.password_salt := generate_salt(FLOOR(DBMS_RANDOM.VALUE(40, 61)));
+        
+        o_hash := DBMS_CRYPTO.HASH(
+            UTL_I18N.STRING_TO_RAW(:NEW.password_salt || RTRIM(:NEW.password_hash), 'AL32UTF8'),
+            DBMS_CRYPTO.HASH_SH1
+        );
+        
         :NEW.password_hash := RAWTOHEX(o_hash);
+        
     ELSIF UPDATING THEN
         IF :NEW.password_hash != :OLD.password_hash THEN
-            :NEW.password_salt := DBMS_RANDOM.STRING('P', FLOOR(DBMS_RANDOM.VALUE(40, 61)));
-            o_hash := DBMS_CRYPTO.HASH(UTL_I18N.STRING_TO_RAW(:NEW.password_salt || RTRIM(:NEW.password_hash), 'AL32UTF8'), DBMS_CRYPTO.HASH_SH1);
+            :NEW.password_salt := generate_salt(FLOOR(DBMS_RANDOM.VALUE(40, 61)));
+            
+            o_hash := DBMS_CRYPTO.HASH(
+                UTL_I18N.STRING_TO_RAW(:NEW.password_salt || RTRIM(:NEW.password_hash), 'AL32UTF8'),
+                DBMS_CRYPTO.HASH_SH1
+            );
+            
             :NEW.password_hash := RAWTOHEX(o_hash); 
         ELSE
             :NEW.password_salt := :OLD.password_salt;
@@ -176,22 +187,24 @@ END beforeUpdatePassenger;
 
 --------------------------------------------------------------------------------
 
-CREATE OR REPLACE TRIGGER ADM.beforeInsertAdmin
+CREATE OR REPLACE TRIGGER ADM.beforeInsertVehicle
 BEFORE INSERT
-ON ADM.admin_info
+ON ADM.vehicle
 FOR EACH ROW
 BEGIN
     :new.created_by := USER;
     :new.creation_date := SYSDATE;
-END beforeInsertAdmin;
+END beforeInsertVehicle;
 
 --------------------------------------------------------------------------------
 
-CREATE OR REPLACE TRIGGER ADM.beforeUpdateAdmin
+CREATE OR REPLACE TRIGGER ADM.beforeUpdateVehicle
 BEFORE UPDATE
-ON ADM.admin_info
+ON ADM.vehicle
 FOR EACH ROW
 BEGIN
     :new.last_updated_by := USER;
     :new.update_date := SYSDATE;
-END beforeUpdateAdmin;
+END beforeUpdateVehicle;
+
+--------------------------------------------------------------------------------

@@ -626,6 +626,7 @@ public class Register_panel extends javax.swing.JPanel {
         }
         else if("Cartago".equals(selectedProvince)){
             CB_Municipality.addItem("Alvarado");
+            CB_Municipality.addItem("Cartago");
             CB_Municipality.addItem("El Guarco");
             CB_Municipality.addItem("Jiménez");
             CB_Municipality.addItem("La Unión");

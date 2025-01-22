@@ -23,4 +23,12 @@ public class Controller {
         return Database_connection.insertPerson(person);
     }
     
+    public static Response login_user(String username, String password){
+        Response response = Data_validator.validate_login(username, password);
+        if(response.getResponse_code() != Response_code.SUCCESS){
+            return response;
+        }
+        return Database_connection.checkLogin(username, password);
+    }
+    
 }

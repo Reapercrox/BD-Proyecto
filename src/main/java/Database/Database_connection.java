@@ -56,6 +56,15 @@ public class Database_connection {
         } 
     }
     
+        private static CallableStatement checkData(CallableStatement call) {
+        try {
+            call.execute();
+            return call;
+        } catch (SQLException e) {
+            return null;
+        } 
+    }
+    
         public static Response insertPerson(Person person){
         // Para construir una llamada parametrizada, coloque el nombre del procedimiento
         // y entre los paréntesis van símbolos de pregunta '?', que son los parámetros del procedimiento.
@@ -119,6 +128,58 @@ public class Database_connection {
                 return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo.");
             }
             return new Response(Response_code.SUCCESS, "Persona registrada exitosamente.");
+        } catch (SQLException e) {
+            return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo. " + e.getMessage());
+        } 
+    }
+        
+        
+        public static Response checkLogin(String u_email, String password){
+        // Para construir una llamada parametrizada, coloque el nombre del procedimiento
+        // y entre los paréntesis van símbolos de pregunta '?', que son los parámetros del procedimiento.
+        String statement = "{call check_login(?,?,?,?)}";
+        Connection DBconnection = getConnection();
+        try {
+            
+            // Se crea una llamada parametrizada.
+            CallableStatement call = DBconnection.prepareCall(statement);
+            // Se insertan los parámetros en la llamada. Note que los símbolos de pregunta
+            // están indexados (inician a partir de 1, no de 0). 
+            // Tome en cuenta que los tipos de datos que inserte aquí, deben coincidir 
+            // con los tipos de datos que recibe el procedimiento de la base de datos.
+            call.setString(1, u_email);
+            call.setString(2, password);
+
+            // Los parámetros de salida son parametros que se pueden consultar en el objeto llamada
+            // despues de ejecutar la llamada. Son útiles para retornar códigos de error o consultas.
+            call.registerOutParameter(3, java.sql.Types.NUMERIC);
+            call.registerOutParameter(4, java.sql.Types.NVARCHAR);
+            
+            // Se ejecuta la llamada.
+            call = checkData(call);
+            
+            if (call == null){
+                return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo.");
+            }
+            
+            // Se obtiene el código de respuesta del procedimiento (para verificar si hubo algún error en la ejecución).
+            // Este código lo puede utilizar para verificar que tipo de error hubo, y así poder generar un mensaje de error
+            // claro para el usuario sobre el error que sucedió.
+            int result_code = call.getInt(3);
+            int result_code_error = call.getInt(4);
+            
+            // Se cierra la conexión con la base de datos.
+            // ES IMPORTANTE QUE SIEMPRE QUE SE ABRA UNA CONEXIÓN LA CIERRE, PUES ESTAS NO SE CIERRAN 
+            // AUTOMÁTICAMENTE. 
+            call.getConnection().close();
+            call.close();
+            
+            // Se retorna el objeto respuesta.
+            // Para esta prueba, el código de error 0 significa que no hubo errores.
+            if (result_code_error != 0){
+                return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo.");
+            }
+            return new Response(Response_code.SUCCESS, "Usuario válido.", result_code);
         } catch (SQLException e) {
             return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo. " + e.getMessage());
         } 

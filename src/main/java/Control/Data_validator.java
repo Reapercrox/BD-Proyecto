@@ -36,4 +36,20 @@ public class Data_validator {
         
         return new Response(Response_code.SUCCESS);
     }
+    
+    public static Response validate_login(String username, String password){
+        if (!Data_validator.is_text_valid(username)){
+            return new Response(Response_code.ERROR, "Error, debe ingresar un usuario válido.");
+        }
+        
+        if(!username.contains("@")){
+            return new Response(Response_code.ERROR, "Error, debe ingresar un formato de correo válido.");
+        }
+        
+        if(!Data_validator.is_text_valid(password)){
+            return new Response(Response_code.ERROR, "Error debe ingresar una contraseña.");
+        }
+        
+        return new Response(Response_code.SUCCESS);
+    }
 }

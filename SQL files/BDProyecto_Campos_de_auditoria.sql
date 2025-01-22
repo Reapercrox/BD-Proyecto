@@ -177,3 +177,17 @@ ADD update_date DATE;
 
 ALTER TABLE admin_info
 ADD last_updated_by NVARCHAR2(10);
+
+--------------------------------------------------------------------------------
+
+ALTER TABLE vehicle
+ADD creation_date DATE;
+
+ALTER TABLE vehicle
+ADD created_by NVARCHAR2(10);
+
+ALTER TABLE vehicle
+ADD update_date DATE;
+
+ALTER TABLE vehicle
+ADD last_updated_by NVARCHAR2(10);
