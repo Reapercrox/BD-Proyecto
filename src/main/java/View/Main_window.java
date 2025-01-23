@@ -19,20 +19,24 @@ public class Main_window extends javax.swing.JFrame {
     private JScrollPane scrollPane;
 
     
-    public static void render_panel(JPanel panel){
-        
+    public static void render_panel(JPanel panel) {
+    
         if (content_panel.getComponentCount() > 0) {
-        Component currentComponent = content_panel.getComponent(0);
+            Component currentComponent = content_panel.getComponent(0);
             if (currentComponent instanceof JPanel) {
-                panelStack.push((JPanel) currentComponent); // Push the current panel onto the stack
+                // Only push the current panel onto the stack if it's different from the new panel
+                if (currentComponent != panel) {
+                    panelStack.push((JPanel) currentComponent); // Push the current panel onto the stack
+                }
             }
         }
+
         
-        
-        content_panel.removeAll();                             
-        content_panel.add(panel,BorderLayout.CENTER); 
+        content_panel.removeAll();
+        content_panel.add(panel, BorderLayout.CENTER);
         content_panel.revalidate();
         content_panel.repaint();
+
         
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(content_panel);
         if (frame != null) {
@@ -41,8 +45,8 @@ public class Main_window extends javax.swing.JFrame {
     }
     
     public static void goBack() {
-         if (!panelStack.isEmpty()) {
-            JPanel previousPanel = panelStack.pop(); // Pop the last panel from the stack
+        if (panelStack.size() > 0) {
+            JPanel previousPanel = panelStack.pop();
             render_panel(previousPanel); // Render the previous panel
         } else {
             System.out.println("No previous panel to go back to."); // Debugging statement

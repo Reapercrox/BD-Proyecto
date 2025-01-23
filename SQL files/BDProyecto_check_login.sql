@@ -35,6 +35,20 @@ BEGIN
         BEGIN
             SELECT 0 INTO p_user_type FROM ADM.driver WHERE id_person_fk = v_user_id;
             p_error_code := 0; -- Success, user is a driver
+            
+            INSERT INTO user_session(
+                id_session,
+                id_person_fk, 
+                active_session, 
+                login_time, 
+                expiration_time)
+            VALUES(
+                s_session.nextval,
+                (SELECT id_person FROM ADM.person WHERE institutional_email = p_email),
+                1,
+                SYSTIMESTAMP,
+                SYSTIMESTAMP + INTERVAL '30' MINUTE);
+            
             RETURN; -- Exit the procedure
         EXCEPTION
             WHEN NO_DATA_FOUND THEN
@@ -44,6 +58,20 @@ BEGIN
         BEGIN
             SELECT 1 INTO p_user_type FROM ADM.passenger WHERE id_person_fk = v_user_id;
             p_error_code := 0; -- Success, user is a passenger
+            
+            INSERT INTO user_session(
+                id_session,
+                id_person_fk, 
+                active_session, 
+                login_time, 
+                expiration_time)
+            VALUES(
+                s_session.nextval,
+                (SELECT id_person FROM ADM.person WHERE institutional_email = p_email),
+                1,
+                SYSTIMESTAMP,
+                SYSTIMESTAMP + INTERVAL '30' MINUTE);
+            
             RETURN; -- Exit the procedure
         EXCEPTION
             WHEN NO_DATA_FOUND THEN
@@ -53,6 +81,20 @@ BEGIN
         BEGIN
             SELECT 2 INTO p_user_type FROM ADM.admin_info WHERE id_person_fk = v_user_id;
             p_error_code := 0; -- Success, user is an admin
+            
+            INSERT INTO user_session(
+                id_session,
+                id_person_fk, 
+                active_session, 
+                login_time, 
+                expiration_time)
+            VALUES(
+                s_session.nextval,
+                (SELECT id_person FROM ADM.person WHERE institutional_email = p_email),
+                1,
+                SYSTIMESTAMP,
+                SYSTIMESTAMP + INTERVAL '30' MINUTE);
+            
             RETURN; -- Exit the procedure
         EXCEPTION
             WHEN NO_DATA_FOUND THEN
@@ -62,6 +104,7 @@ BEGIN
     ELSE
         p_error_code := 1;
     END IF;
+    
     
     
     EXCEPTION

@@ -158,7 +158,7 @@ public class Register_panel extends javax.swing.JPanel {
         jLabel11.setText("License number:");
 
         try {
-            license_formated.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-#########")));
+            license_formated.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("AA-#########")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -173,6 +173,7 @@ public class Register_panel extends javax.swing.JPanel {
 
         expiration_date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd-MMM-yy"))));
         expiration_date.setText("dd-MMM-yy");
+        expiration_date.setToolTipText("");
 
         javax.swing.GroupLayout Conditional_optionsLayout = new javax.swing.GroupLayout(Conditional_options);
         Conditional_options.setLayout(Conditional_optionsLayout);
@@ -371,16 +372,17 @@ public class Register_panel extends javax.swing.JPanel {
                                             .addComponent(FT_exact_address, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(Conditional_options, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(accepts_check)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(register_sign_up_bt)
-                        .addGap(18, 18, 18)
-                        .addComponent(LB_registration_message, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(BT_go_back))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(register_terms_bt, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(register_sign_up_bt)
+                            .addGap(18, 18, 18)
+                            .addComponent(LB_registration_message, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BT_go_back))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(register_terms_bt, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 122, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -551,6 +553,18 @@ public class Register_panel extends javax.swing.JPanel {
                                    FT_district.getText(),(String)CB_Municipality.getSelectedItem(), FT_exact_address.getText(), FT_zip_code.getText(),
                                    CB_type_user.getSelectedIndex() 
                                    );
+        
+        if(CB_type_user.getSelectedIndex() == 0){
+            person = new Person(FT_first_name.getText(), FT_second_name.getText(), FT_last_name.getText(), FT_second_last.getText(),
+                    birthday_formatted.getText(), FT_Institution_Email.getText(), FT_password_register.getText(),
+                    isChecked, CB_Gender.getSelectedIndex(), CB_institution.getSelectedIndex(),
+                    CB_type_id.getSelectedIndex(), FT_Id_Number.getText(), 0,
+                    CB_Country.getSelectedIndex(), CB_Province.getSelectedIndex()+1,
+                    FT_district.getText(),(String)CB_Municipality.getSelectedItem(), FT_exact_address.getText(), FT_zip_code.getText(),
+                    CB_type_user.getSelectedIndex(), license_formated.getText(), expiration_date.getText()
+                    );
+        } 
+
         Response response = Controller.register_person(person);
         LB_registration_message.setText(response.getMessage());
         LB_registration_message.setForeground(Color.red);

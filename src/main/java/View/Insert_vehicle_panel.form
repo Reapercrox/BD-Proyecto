@@ -28,13 +28,14 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="FT_email" alignment="0" pref="110" max="32767" attributes="0"/>
-                      <Component id="FT_color" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="FT_color" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="BT_register" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="BT_go_back" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="LB_output_message" alignment="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
@@ -49,16 +50,12 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="FT_brand" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                                       <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="BT_register" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="BT_go_back" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="FT_car_model" max="32767" attributes="0"/>
-                                          <Component id="FT_plate_number" alignment="0" pref="110" max="32767" attributes="0"/>
-                                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="FT_car_model" max="32767" attributes="0"/>
+                                      <Component id="FT_plate_number" alignment="0" pref="110" max="32767" attributes="0"/>
+                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -66,11 +63,11 @@
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          <Component id="FT_seats" min="-2" pref="110" max="-2" attributes="0"/>
+                          <Component id="SP_seats" min="-2" pref="111" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="195" max="32767" attributes="0"/>
+              <EmptySpace pref="194" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -89,7 +86,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="FT_brand" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="FT_car_model" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="FT_seats" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="SP_seats" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -101,18 +98,14 @@
                   <Component id="FT_color" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="FT_plate_number" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="FT_email" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="BT_register" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BT_go_back" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="LB_output_message" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="93" max="32767" attributes="0"/>
+              <EmptySpace pref="194" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -157,11 +150,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FT_car_modelActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="FT_seats">
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="FT_seats"/>
-      </AccessibilityProperties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="text" type="java.lang.String" value="Color:"/>
@@ -170,11 +158,6 @@
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Plate_number:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel7">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="E-mail for confirmation:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="FT_color">
@@ -186,11 +169,6 @@
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="FT_plate_number"/>
         <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
-      </AccessibilityProperties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="FT_email">
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="FT_email"/>
       </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JButton" name="BT_register">
@@ -206,6 +184,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Register"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BT_registerActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BT_go_back">
       <Properties>
@@ -214,11 +195,16 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Go back"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BT_go_backActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="LB_output_message">
       <Properties>
         <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="SP_seats">
     </Component>
   </SubComponents>
 </Form>

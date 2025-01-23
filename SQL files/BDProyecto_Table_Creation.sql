@@ -490,3 +490,18 @@ CONSTRAINT fk_booking_route FOREIGN KEY (id_route_fk) REFERENCES route(id_route)
 ALTER TABLE booking
 ADD
 CONSTRAINT fk_booking_key_location FOREIGN KEY (id_pickup_point_fk) REFERENCES key_location(id_key_location);
+
+-------------------------------------------------------------------------------------------------
+
+CREATE TABLE user_session
+(
+    id_session NVARCHAR2(255) CONSTRAINT id_session_uk UNIQUE,
+    id_person_fk NUMBER(6),
+    active_session NUMBER(1) DEFAULT 0,
+    login_time TIMESTAMP,
+    expiration_time TIMESTAMP
+);
+
+ALTER TABLE user_session
+ADD
+CONSTRAINT fk_user_session_person FOREIGN KEY (id_person_fk) REFERENCES person(id_person);

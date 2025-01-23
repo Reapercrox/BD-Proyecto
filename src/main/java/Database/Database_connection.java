@@ -3,6 +3,7 @@ package Database;
 import Constants.Response_code;
 import Models.Person;
 import Models.Response;
+import Models.Vehicle;
 import java.sql.ResultSet;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -65,7 +66,7 @@ public class Database_connection {
         } 
     }
     
-        public static Response insertPerson(Person person){
+    public static Response insertPerson(Person person){
         // Para construir una llamada parametrizada, coloque el nombre del procedimiento
         // y entre los paréntesis van símbolos de pregunta '?', que son los parámetros del procedimiento.
         String statement = "{call insert_new_person(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
@@ -108,7 +109,7 @@ public class Database_connection {
             call = insertData(call);
             
             if (call == null){
-                return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo.");
+                return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
             }
             
             // Se obtiene el código de respuesta del procedimiento (para verificar si hubo algún error en la ejecución).
@@ -125,16 +126,16 @@ public class Database_connection {
             // Se retorna el objeto respuesta.
             // Para esta prueba, el código de error 0 significa que no hubo errores.
             if (result_code != 0){
-                return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo.");
+                return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
             }
             return new Response(Response_code.SUCCESS, "Persona registrada exitosamente.");
         } catch (SQLException e) {
-            return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo. " + e.getMessage());
+            return new Response(Response_code.ERROR, "Unexpected error happened, try again." + e.getMessage());
         } 
     }
         
         
-        public static Response checkLogin(String u_email, String password){
+    public static Response checkLogin(String u_email, String password){
         // Para construir una llamada parametrizada, coloque el nombre del procedimiento
         // y entre los paréntesis van símbolos de pregunta '?', que son los parámetros del procedimiento.
         String statement = "{call check_login(?,?,?,?)}";
@@ -159,7 +160,7 @@ public class Database_connection {
             call = checkData(call);
             
             if (call == null){
-                return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo.");
+                return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
             }
             
             // Se obtiene el código de respuesta del procedimiento (para verificar si hubo algún error en la ejecución).
@@ -177,11 +178,105 @@ public class Database_connection {
             // Se retorna el objeto respuesta.
             // Para esta prueba, el código de error 0 significa que no hubo errores.
             if (result_code_error != 0){
-                return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo.");
+                return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
             }
-            return new Response(Response_code.SUCCESS, "Usuario válido.", result_code);
+            return new Response(Response_code.SUCCESS, "Valid user.", result_code);
         } catch (SQLException e) {
-            return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo. " + e.getMessage());
+            return new Response(Response_code.ERROR, "Unexpected error happened, try again." + e.getMessage());
+        } 
+    }
+    
+    public static Response insertVehicle(Vehicle vehicle){
+        // Para construir una llamada parametrizada, coloque el nombre del procedimiento
+        // y entre los paréntesis van símbolos de pregunta '?', que son los parámetros del procedimiento.
+        String statement = "{call insert_vehicle(?,?,?,?,?,?)}";
+        Connection DBconnection = getConnection();
+        try {
+            
+            // Se crea una llamada parametrizada.
+            CallableStatement call = DBconnection.prepareCall(statement);
+            // Se insertan los parámetros en la llamada. Note que los símbolos de pregunta
+            // están indexados (inician a partir de 1, no de 0). 
+            // Tome en cuenta que los tipos de datos que inserte aquí, deben coincidir 
+            // con los tipos de datos que recibe el procedimiento de la base de datos.
+            call.setInt(1, vehicle.getSeat_quantity());
+            call.setString(2, vehicle.getBrand());
+            call.setString(3,vehicle.getCar_model());
+            call.setString(4, vehicle.getColor());
+            call.setString(5, vehicle.getPlate_number());
+
+            // Los parámetros de salida son parametros que se pueden consultar en el objeto llamada
+            // despues de ejecutar la llamada. Son útiles para retornar códigos de error o consultas.
+            call.registerOutParameter(6, java.sql.Types.NUMERIC);
+            
+            // Se ejecuta la llamada.
+            call = insertData(call);
+            
+            if (call == null){
+                return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
+            }
+            
+            // Se obtiene el código de respuesta del procedimiento (para verificar si hubo algún error en la ejecución).
+            // Este código lo puede utilizar para verificar que tipo de error hubo, y así poder generar un mensaje de error
+            // claro para el usuario sobre el error que sucedió.
+            int result_code = call.getInt(6);
+            
+            // Se cierra la conexión con la base de datos.
+            // ES IMPORTANTE QUE SIEMPRE QUE SE ABRA UNA CONEXIÓN LA CIERRE, PUES ESTAS NO SE CIERRAN 
+            // AUTOMÁTICAMENTE. 
+            call.getConnection().close();
+            call.close();
+            
+            // Se retorna el objeto respuesta.
+            // Para esta prueba, el código de error 0 significa que no hubo errores.
+            if (result_code != 1){
+                return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
+            }
+            return new Response(Response_code.SUCCESS, "Vehicle registered successful.");
+        } catch (SQLException e) {
+            return new Response(Response_code.ERROR, "Unexpected error happened, try again." + e.getMessage());
+        } 
+    }
+    
+        public static Response logOut(){
+        // Para construir una llamada parametrizada, coloque el nombre del procedimiento
+        // y entre los paréntesis van símbolos de pregunta '?', que son los parámetros del procedimiento.
+        String statement = "{call log_out}";
+        Connection DBconnection = getConnection();
+        try {
+            
+            // Se crea una llamada parametrizada.
+            CallableStatement call = DBconnection.prepareCall(statement);
+            // Se insertan los parámetros en la llamada. Note que los símbolos de pregunta
+            // están indexados (inician a partir de 1, no de 0). 
+            // Tome en cuenta que los tipos de datos que inserte aquí, deben coincidir 
+            // con los tipos de datos que recibe el procedimiento de la base de datos.
+
+            // Los parámetros de salida son parametros que se pueden consultar en el objeto llamada
+            // despues de ejecutar la llamada. Son útiles para retornar códigos de error o consultas.
+            
+            // Se ejecuta la llamada.
+            call = insertData(call);
+            
+            if (call == null){
+                return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
+            }
+            
+            // Se obtiene el código de respuesta del procedimiento (para verificar si hubo algún error en la ejecución).
+            // Este código lo puede utilizar para verificar que tipo de error hubo, y así poder generar un mensaje de error
+            // claro para el usuario sobre el error que sucedió.
+            
+            // Se cierra la conexión con la base de datos.
+            // ES IMPORTANTE QUE SIEMPRE QUE SE ABRA UNA CONEXIÓN LA CIERRE, PUES ESTAS NO SE CIERRAN 
+            // AUTOMÁTICAMENTE. 
+            call.getConnection().close();
+            call.close();
+            
+            // Se retorna el objeto respuesta.
+            // Para esta prueba, el código de error 0 significa que no hubo errores.
+            return new Response(Response_code.SUCCESS, "Log out.");
+        } catch (SQLException e) {
+            return new Response(Response_code.ERROR, "Unexpected error happened, try again." + e.getMessage());
         } 
     }
 }

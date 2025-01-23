@@ -4,6 +4,8 @@
  */
 package View;
 
+import Control.Controller;
+import Models.Response;
 import javax.swing.JPanel;
 
 /**
@@ -40,6 +42,7 @@ public class Driver extends javax.swing.JPanel implements java.beans.Customizer 
         BT_view_vehicles = new javax.swing.JButton();
         BT_edit_vehicle = new javax.swing.JButton();
         BT_cancel_route = new javax.swing.JButton();
+        BT_log_out = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(600, 550));
 
@@ -89,6 +92,16 @@ public class Driver extends javax.swing.JPanel implements java.beans.Customizer 
         BT_cancel_route.setForeground(new java.awt.Color(255, 255, 255));
         BT_cancel_route.setText("Cancel route");
 
+        BT_log_out.setBackground(new java.awt.Color(0, 0, 255));
+        BT_log_out.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
+        BT_log_out.setForeground(new java.awt.Color(255, 255, 255));
+        BT_log_out.setText("Log Out");
+        BT_log_out.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BT_log_outActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,7 +115,8 @@ public class Driver extends javax.swing.JPanel implements java.beans.Customizer 
                     .addComponent(BT_view_routes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BT_vehicle_register, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                     .addComponent(BT_edit_vehicle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BT_cancel_route, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BT_cancel_route, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BT_log_out, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(223, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -122,7 +136,9 @@ public class Driver extends javax.swing.JPanel implements java.beans.Customizer 
                 .addComponent(BT_edit_vehicle)
                 .addGap(18, 18, 18)
                 .addComponent(BT_cancel_route)
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(BT_log_out)
+                .addContainerGap(116, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -135,10 +151,16 @@ public class Driver extends javax.swing.JPanel implements java.beans.Customizer 
         // TODO add your handling code here:
     }//GEN-LAST:event_BT_route_registerActionPerformed
 
+    private void BT_log_outActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_log_outActionPerformed
+        Response response = Controller.log_out();
+        Main_window.goBack();
+    }//GEN-LAST:event_BT_log_outActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BT_cancel_route;
     private javax.swing.JButton BT_edit_vehicle;
+    private javax.swing.JButton BT_log_out;
     private javax.swing.JButton BT_route_register;
     private javax.swing.JButton BT_vehicle_register;
     private javax.swing.JButton BT_view_routes;

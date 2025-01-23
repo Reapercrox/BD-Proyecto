@@ -37,7 +37,7 @@ BEGIN
     FROM person
     WHERE institutional_email = p_institutional_email;
     
-    p_procedure_message := 'Email already registered';
+    p_procedure_message := 2;
     RETURN;
     
     EXCEPTION
@@ -72,6 +72,21 @@ BEGIN
                 (SELECT id_app FROM carpool_app WHERE id_app = p_id_app_fk)
             );
     
+    END;
+    
+    BEGIN
+        INSERT INTO personal_id(
+            id_personal,
+            type_id,
+            number_id,
+            id_person_fk
+        )
+        VALUES(
+            s_persona_id.nextval,
+            p_type_id,
+            p_personal_id,
+            s_person.currval
+        );
     END;
     
     BEGIN
@@ -123,20 +138,6 @@ BEGIN
             );
     END;
     
-    BEGIN
-        INSERT INTO personal_id(
-            id_personal,
-            type_id,
-            number_id,
-            id_person_fk
-        )
-        VALUES(
-            s_persona_id.nextval,
-            p_type_id,
-            p_personal_id,
-            s_person.currval
-        );
-    END;
     
     IF p_type_user = 0 THEN
         BEGIN
@@ -182,11 +183,11 @@ BEGIN
     
     COMMIT;
     
-    p_procedure_message := 1;
+    p_procedure_message := 0;
         
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK; 
-            p_procedure_message := 0;
+            p_procedure_message := 1;
             RAISE;
 END insert_new_person;

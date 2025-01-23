@@ -4,6 +4,12 @@
  */
 package View;
 
+import Constants.Response_code;
+import Control.Controller;
+import Models.Response;
+import Models.Vehicle;
+import java.awt.Color;
+
 /**
  *
  * @author memis
@@ -17,6 +23,14 @@ public class Insert_vehicle_panel extends javax.swing.JPanel implements java.bea
      */
     public Insert_vehicle_panel() {
         initComponents();
+    }
+    
+    private void clean_fields(){
+        SP_seats.setValue(0);
+        FT_brand.setText("");
+        FT_car_model.setText("");
+        FT_color.setText("");
+        FT_plate_number.setText("");
     }
     
     public void setObject(Object bean) {
@@ -37,16 +51,14 @@ public class Insert_vehicle_panel extends javax.swing.JPanel implements java.bea
         jLabel4 = new javax.swing.JLabel();
         FT_brand = new javax.swing.JTextField();
         FT_car_model = new javax.swing.JTextField();
-        FT_seats = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         FT_color = new javax.swing.JTextField();
         FT_plate_number = new javax.swing.JTextField();
-        FT_email = new javax.swing.JTextField();
         BT_register = new javax.swing.JButton();
         BT_go_back = new javax.swing.JButton();
         LB_output_message = new javax.swing.JLabel();
+        SP_seats = new javax.swing.JSpinner();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(600, 550));
@@ -71,15 +83,23 @@ public class Insert_vehicle_panel extends javax.swing.JPanel implements java.bea
 
         jLabel6.setText("Plate_number:");
 
-        jLabel7.setText("E-mail for confirmation:");
-
         BT_register.setBackground(new java.awt.Color(0, 0, 255));
         BT_register.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         BT_register.setForeground(new java.awt.Color(255, 255, 255));
         BT_register.setText("Register");
+        BT_register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BT_registerActionPerformed(evt);
+            }
+        });
 
         BT_go_back.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         BT_go_back.setText("Go back");
+        BT_go_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BT_go_backActionPerformed(evt);
+            }
+        });
 
         LB_output_message.setText(" ");
 
@@ -90,12 +110,13 @@ public class Insert_vehicle_panel extends javax.swing.JPanel implements java.bea
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(FT_email, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                        .addComponent(FT_color, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(FT_color, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BT_register)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BT_go_back))
                             .addComponent(LB_output_message, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -107,20 +128,17 @@ public class Insert_vehicle_panel extends javax.swing.JPanel implements java.bea
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(FT_brand, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel5)
-                                        .addComponent(BT_register))
+                                        .addComponent(jLabel5))
                                     .addGap(25, 25, 25)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(BT_go_back)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(FT_car_model)
-                                            .addComponent(FT_plate_number, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                                            .addComponent(jLabel6))))))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(FT_car_model)
+                                        .addComponent(FT_plate_number, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                                        .addComponent(jLabel6)))))
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(FT_seats, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(195, Short.MAX_VALUE))
+                            .addComponent(SP_seats, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +154,7 @@ public class Insert_vehicle_panel extends javax.swing.JPanel implements java.bea
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FT_brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FT_car_model, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FT_seats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SP_seats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -145,31 +163,44 @@ public class Insert_vehicle_panel extends javax.swing.JPanel implements java.bea
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FT_color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FT_plate_number, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FT_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BT_register)
                     .addComponent(BT_go_back))
                 .addGap(18, 18, 18)
                 .addComponent(LB_output_message)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
 
         FT_brand.getAccessibleContext().setAccessibleName("FT_brand");
         FT_car_model.getAccessibleContext().setAccessibleName("FT_car_model");
-        FT_seats.getAccessibleContext().setAccessibleName("FT_seats");
         FT_color.getAccessibleContext().setAccessibleName("FT_color");
         FT_plate_number.getAccessibleContext().setAccessibleName("FT_plate_number");
         FT_plate_number.getAccessibleContext().setAccessibleDescription("");
-        FT_email.getAccessibleContext().setAccessibleName("FT_email");
     }// </editor-fold>//GEN-END:initComponents
 
     private void FT_car_modelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FT_car_modelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_FT_car_modelActionPerformed
+
+    private void BT_registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_registerActionPerformed
+                
+        Vehicle ride = new Vehicle((int)SP_seats.getValue(), FT_brand.getText(), FT_car_model.getText(), FT_color.getText(), FT_plate_number.getText());
+        
+        Response response = Controller.register_vehicle(ride);
+        
+        LB_output_message.setText(response.getMessage());
+        LB_output_message.setForeground(Color.red);
+        if (response.getResponse_code() == Response_code.SUCCESS){
+            LB_output_message.setForeground(Color.black);
+            clean_fields();
+        }
+        LB_output_message.setVisible(true);
+    }//GEN-LAST:event_BT_registerActionPerformed
+
+    private void BT_go_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_go_backActionPerformed
+        Main_window.goBack();
+    }//GEN-LAST:event_BT_go_backActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -178,16 +209,14 @@ public class Insert_vehicle_panel extends javax.swing.JPanel implements java.bea
     private javax.swing.JTextField FT_brand;
     private javax.swing.JTextField FT_car_model;
     private javax.swing.JTextField FT_color;
-    private javax.swing.JTextField FT_email;
     private javax.swing.JTextField FT_plate_number;
-    private javax.swing.JTextField FT_seats;
     private javax.swing.JLabel LB_output_message;
+    private javax.swing.JSpinner SP_seats;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }
