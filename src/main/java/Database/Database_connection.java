@@ -53,6 +53,7 @@ public class Database_connection {
             call.execute();
             return call;
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         } 
     }
@@ -238,7 +239,7 @@ public class Database_connection {
         } 
     }
     
-        public static Response logOut(){
+    public static Response logOut(){
         // Para construir una llamada parametrizada, coloque el nombre del procedimiento
         // y entre los paréntesis van símbolos de pregunta '?', que son los parámetros del procedimiento.
         String statement = "{call log_out}";
@@ -278,5 +279,61 @@ public class Database_connection {
         } catch (SQLException e) {
             return new Response(Response_code.ERROR, "Unexpected error happened, try again." + e.getMessage());
         } 
+    }
+    
+    public static int get_vehicle_count(){
+        // A diferencia de los métodos anteriores, en este se utiliza una función (no un procedimiento)
+        // por lo que note la diferencia con respecto al statement.
+        String statement = "{call ADM.get_vehicle_count(?)}";
+        Connection DBconnection = getConnection();
+        try {
+            CallableStatement call = DBconnection.prepareCall(statement); 
+            // El resultado que retorna la función se toma como parámetro de salida.
+            call.registerOutParameter(1, java.sql.Types.NUMERIC);
+            call = queryData(call);
+            int count = call.getInt(1);
+            call.getConnection().close();
+            call.close();
+            return count;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
+    
+    public static Response get_vehicle(int first_row, int last_row){
+        String statement = "{call get_vehicle(?,?,?)}";
+        Connection DBconnection = getConnection();
+        try {
+            CallableStatement call = DBconnection.prepareCall(statement);
+            call.setInt(1, first_row);
+            call.setInt(2, last_row);
+            call.registerOutParameter(3, OracleTypes.CURSOR);
+            
+            call = queryData(call);
+            
+            // Cuando se obtiene un cursor de un parámetro de salida, el resultado del mismo
+            // se puede almacenar en un objeto ResultSet, el cual se puede recorrer con un ciclo
+            // para obtener los datos retornados por la consulta, y guardarlos, por ejemplo, en una lista.
+            ResultSet resultSet = (ResultSet) call.getObject(3);
+            ArrayList<String> result = new ArrayList<>();
+            while (resultSet.next()) {
+                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                    result.add(resultSet.getString(i));
+                }
+            }
+            
+            // NO OLVIDE CERRAR EL CURSOR Y LA CONEXIÓN.
+            resultSet.close();
+            call.getConnection().close();
+            call.close();
+            
+            return new Response(Response_code.SUCCESS, "", result);    
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo.");
+        }
     }
 }

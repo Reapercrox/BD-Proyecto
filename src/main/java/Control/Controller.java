@@ -44,4 +44,12 @@ public class Controller {
         return Database_connection.logOut();
     }
     
+    public static int get_vehicle_count(){
+        return Database_connection.get_vehicle_count();
+    }
+    
+    public static Response get_vehicle(int first_row, int last_row){
+        return Database_connection.get_vehicle(first_row, last_row);
+    }
+    
 }

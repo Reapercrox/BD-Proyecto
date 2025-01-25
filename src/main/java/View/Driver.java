@@ -81,6 +81,11 @@ public class Driver extends javax.swing.JPanel implements java.beans.Customizer 
         BT_view_vehicles.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
         BT_view_vehicles.setForeground(new java.awt.Color(255, 255, 255));
         BT_view_vehicles.setText("View vehicles");
+        BT_view_vehicles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BT_view_vehiclesActionPerformed(evt);
+            }
+        });
 
         BT_edit_vehicle.setBackground(new java.awt.Color(0, 0, 255));
         BT_edit_vehicle.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
@@ -153,8 +158,14 @@ public class Driver extends javax.swing.JPanel implements java.beans.Customizer 
 
     private void BT_log_outActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_log_outActionPerformed
         Response response = Controller.log_out();
-        Main_window.goBack();
+        JPanel log_in = new Login_panel();
+        Main_window.render_panel(log_in);
     }//GEN-LAST:event_BT_log_outActionPerformed
+
+    private void BT_view_vehiclesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_view_vehiclesActionPerformed
+        JPanel view_vehicle = new get_available_vehicles();
+        Main_window.render_panel(view_vehicle);
+    }//GEN-LAST:event_BT_view_vehiclesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

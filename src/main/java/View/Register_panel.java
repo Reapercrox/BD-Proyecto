@@ -588,7 +588,8 @@ public class Register_panel extends javax.swing.JPanel {
     }//GEN-LAST:event_CB_MunicipalityActionPerformed
 
     private void BT_go_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_go_backActionPerformed
-         Main_window.goBack();
+         JPanel login = new Login_panel();
+         Main_window.render_panel(login);
     }//GEN-LAST:event_BT_go_backActionPerformed
 
     

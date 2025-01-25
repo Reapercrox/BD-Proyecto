@@ -26,7 +26,7 @@ public class Main_window extends javax.swing.JFrame {
         content_panel.revalidate();
         content_panel.repaint();
         
-        if (content_panel.getComponentCount() > 0) {
+        /*if (content_panel.getComponentCount() > 0) {
             Component currentComponent = content_panel.getComponent(0);
             if (currentComponent instanceof JPanel) {
                 if(panelStack.isEmpty()){
@@ -36,7 +36,7 @@ public class Main_window extends javax.swing.JFrame {
                     panelStack.push((JPanel) currentComponent);
                 }
             }
-        }
+        }*/
         
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(content_panel);
         if (frame != null) {
