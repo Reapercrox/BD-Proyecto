@@ -153,7 +153,8 @@ public class Driver extends javax.swing.JPanel implements java.beans.Customizer 
     }//GEN-LAST:event_BT_vehicle_registerActionPerformed
 
     private void BT_route_registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_route_registerActionPerformed
-        // TODO add your handling code here:
+        JPanel register_route = new Route_panel();
+        Main_window.render_panel(register_route);
     }//GEN-LAST:event_BT_route_registerActionPerformed
 
     private void BT_log_outActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_log_outActionPerformed

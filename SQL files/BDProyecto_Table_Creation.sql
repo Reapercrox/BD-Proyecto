@@ -375,9 +375,9 @@ STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
 CREATE TABLE route
 (
     id_route NUMBER(6),
-    start_time NVARCHAR2(5) CONSTRAINT route_start_time_nn NOT NULL,
-    end_time NVARCHAR2(5)CONSTRAINT route_end_time_nn NOT NULL,
-    estimated_duration NVARCHAR2(5) CONSTRAINT route_estimated_duration_nn NOT NULL,
+    start_time TIMESTAMP CONSTRAINT route_start_time_nn NOT NULL,
+    end_time TIMESTAMP CONSTRAINT route_end_time_nn NOT NULL,
+    estimated_duration INTERVAL DAY TO SECOND CONSTRAINT route_estimated_duration_nn NOT NULL,
     available_space NUMBER(2) CONSTRAINT available_spaces_check_nn CHECK(available_space>=0 AND available_space<10) NOT NULL,
     id_vehicle_fk NUMBER(6),
     id_payment_fk NUMBER(6)

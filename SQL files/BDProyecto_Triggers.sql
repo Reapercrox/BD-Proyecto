@@ -208,3 +208,67 @@ BEGIN
 END beforeUpdateVehicle;
 
 --------------------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER ADM.beforeInsertRoute
+BEFORE INSERT
+ON ADM.route
+FOR EACH ROW
+BEGIN
+    :new.created_by := USER;
+    :new.creation_date := SYSDATE;
+END beforeInsertRoute;
+
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER ADM.beforeUpdateRoute
+BEFORE UPDATE
+ON ADM.route
+FOR EACH ROW
+BEGIN
+    :new.last_updated_by := USER;
+    :new.update_date := SYSDATE;
+END beforeUpdateRoute;
+
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER ADM.beforeInsertPayment
+BEFORE INSERT
+ON ADM.payment_method
+FOR EACH ROW
+BEGIN
+    :new.created_by := USER;
+    :new.creation_date := SYSDATE;
+END beforeInsertPayment;
+
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER ADM.beforeUpdatePayment
+BEFORE UPDATE
+ON ADM.payment_method
+FOR EACH ROW
+BEGIN
+    :new.last_updated_by := USER;
+    :new.update_date := SYSDATE;
+END beforeUpdatePayment;
+
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER ADM.beforeInsertKey
+BEFORE INSERT
+ON ADM.key_location
+FOR EACH ROW
+BEGIN
+    :new.created_by := USER;
+    :new.creation_date := SYSDATE;
+END beforeInsertKey;
+
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER ADM.beforeUpdateKey
+BEFORE UPDATE
+ON ADM.key_location
+FOR EACH ROW
+BEGIN
+    :new.last_updated_by := USER;
+    :new.update_date := SYSDATE;
+END beforeUpdateKey;

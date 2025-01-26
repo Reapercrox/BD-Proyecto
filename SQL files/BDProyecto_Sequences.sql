@@ -147,3 +147,31 @@ NOCACHE
 NOCYCLE;
 
 --------------------------------------------------------------------------------
+
+CREATE SEQUENCE s_route
+START WITH 0
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 10000000
+NOCACHE
+NOCYCLE;
+
+--------------------------------------------------------------------------------
+
+CREATE SEQUENCE s_key_location
+START WITH 0
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 10000000
+NOCACHE
+NOCYCLE;
+
+--------------------------------------------------------------------------------
+
+CREATE SEQUENCE s_payment_method
+START WITH 0
+INCREMENT BY 1
+MINVALUE 0
+MAXVALUE 10000000
+NOCACHE
+NOCYCLE;

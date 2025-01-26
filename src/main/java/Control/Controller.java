@@ -8,6 +8,7 @@ import Constants.Response_code;
 import Database.Database_connection;
 import Models.Person;
 import Models.Response;
+import Models.Route;
 import Models.Vehicle;
 
 /**
@@ -50,6 +51,10 @@ public class Controller {
     
     public static Response get_vehicle(int first_row, int last_row){
         return Database_connection.get_vehicle(first_row, last_row);
+    }
+    
+    public static Response insert_route(Route route){
+        return Database_connection.insert_route(route);
     }
     
 }

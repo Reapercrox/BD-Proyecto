@@ -8,74 +8,89 @@ package Models;
  *
  * @author memis
  */
+import java.sql.Timestamp;
 import java.time.*;
         
 public class Route {
     
-    private LocalTime start_time;
-    private LocalTime end_time;
-    private Duration estimated_duration;
-    private String available_space;
-    private String id_vehicle;
+    private String date;
+    private Timestamp start_time;
+    private Timestamp end_time;
+    private int available_space;
     private String type_payment;
     private String payment_amount;
     private String start_location;
     private String road_name;
     private String relevant_location_1;
     private String relevant_location_2;
+    private String end_location;
+    private String plate_number;
 
-    public Route(LocalTime start_time, LocalTime end_time, Duration estimated_duration, String available_space, String id_vehicle, String type_payment, String payment_amount, String start_location, String road_name, String relevant_location_1, String relevant_location_2) {
+    public Route(String date, Timestamp start_time, Timestamp end_time, int available_space, String type_payment, String payment_amount, String start_location, String road_name, String relevant_location_1, String relevant_location_2, String end_location, String plate_number) {
+        this.date = date;
         this.start_time = start_time;
         this.end_time = end_time;
-        this.estimated_duration = estimated_duration;
         this.available_space = available_space;
-        this.id_vehicle = id_vehicle;
         this.type_payment = type_payment;
         this.payment_amount = payment_amount;
         this.start_location = start_location;
         this.road_name = road_name;
         this.relevant_location_1 = relevant_location_1;
         this.relevant_location_2 = relevant_location_2;
+        this.end_location = end_location;
+        this.plate_number = plate_number;
     }
 
-    public LocalTime getStart_time() {
+    public String getPlate_number() {
+        return plate_number;
+    }
+
+    public void setPlate_number(String plate_number) {
+        this.plate_number = plate_number;
+    }
+
+
+    
+
+
+    public Timestamp getStart_time() {
         return start_time;
     }
 
-    public void setStart_time(LocalTime start_time) {
+    public void setStart_time(Timestamp start_time) {
         this.start_time = start_time;
     }
 
-    public LocalTime getEnd_time() {
+    public Timestamp getEnd_time() {
         return end_time;
     }
 
-    public void setEnd_time(LocalTime end_time) {
+    public void setEnd_time(Timestamp end_time) {
         this.end_time = end_time;
     }
 
-    public Duration getEstimated_duration() {
-        return estimated_duration;
-    }
-
-    public void setEstimated_duration(Duration estimated_duration) {
-        this.estimated_duration = estimated_duration;
-    }
-
-    public String getAvailable_space() {
+    public int getAvailable_space() {
         return available_space;
     }
 
-    public void setAvailable_space(String available_space) {
+    public void setAvailable_space(int available_space) {
         this.available_space = available_space;
     }
 
-    public String getId_vehicle() {
-        return id_vehicle;
+    public String getDate() {
+        return date;
     }
 
-    public void setId_vehicle(String id_vehicle) {
-        this.id_vehicle = id_vehicle;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getEnd_location() {
+        return end_location;
+    }
+
+    public void setEnd_location(String end_location) {
+        this.end_location = end_location;
     }
 
     public String getType_payment() {
@@ -125,9 +140,6 @@ public class Route {
     public void setRelevant_location_2(String relevant_location_2) {
         this.relevant_location_2 = relevant_location_2;
     }
-    
-    
-    
-    
+      
     
 }

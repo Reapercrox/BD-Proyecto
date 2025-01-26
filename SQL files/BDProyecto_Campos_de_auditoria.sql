@@ -191,3 +191,51 @@ ADD update_date DATE;
 
 ALTER TABLE vehicle
 ADD last_updated_by NVARCHAR2(10);
+
+--------------------------------------------------------------------------------
+
+ALTER TABLE route
+ADD creation_date DATE;
+
+ALTER TABLE route
+ADD created_by NVARCHAR2(10);
+
+ALTER TABLE route
+ADD update_date DATE;
+
+ALTER TABLE route
+ADD last_updated_by NVARCHAR2(10);
+
+--------------------------------------------------------------------------------
+
+ALTER TABLE payment_method
+ADD creation_date DATE;
+
+ALTER TABLE payment_method
+ADD created_by NVARCHAR2(10);
+
+ALTER TABLE payment_method
+ADD update_date DATE;
+
+ALTER TABLE payment_method
+ADD last_updated_by NVARCHAR2(10);
+
+--------------------------------------------------------------------------------
+
+ALTER TABLE key_location 
+ADD creation_date DATE;
+
+ALTER TABLE key_location
+ADD created_by NVARCHAR2(10);
+
+ALTER TABLE key_location
+ADD update_date DATE;
+
+ALTER TABLE key_location
+ADD last_updated_by NVARCHAR2(10);
+
+ALTER TABLE route
+ADD day_of DATE;
+
+ALTER TABLE route
+ADD end_point NVARCHAR2(50);

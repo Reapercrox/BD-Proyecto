@@ -3,6 +3,7 @@ package Database;
 import Constants.Response_code;
 import Models.Person;
 import Models.Response;
+import Models.Route;
 import Models.Vehicle;
 import java.sql.ResultSet;
 import java.sql.CallableStatement;
@@ -129,7 +130,7 @@ public class Database_connection {
             if (result_code != 0){
                 return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
             }
-            return new Response(Response_code.SUCCESS, "Persona registrada exitosamente.");
+            return new Response(Response_code.SUCCESS, "Person successfully registered.");
         } catch (SQLException e) {
             return new Response(Response_code.ERROR, "Unexpected error happened, try again." + e.getMessage());
         } 
@@ -335,5 +336,62 @@ public class Database_connection {
             e.printStackTrace();
             return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo.");
         }
+    }
+    
+    public static Response insert_route(Route route){
+        String statement = "{call insert_route_data(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+        Connection DBconnection = getConnection();
+        try {
+            
+            // Se crea una llamada parametrizada.
+            CallableStatement call = DBconnection.prepareCall(statement);
+            // Se insertan los parámetros en la llamada. Note que los símbolos de pregunta
+            // están indexados (inician a partir de 1, no de 0). 
+            // Tome en cuenta que los tipos de datos que inserte aquí, deben coincidir 
+            // con los tipos de datos que recibe el procedimiento de la base de datos.
+            call.setString(1, route.getDate());
+            call.setTimestamp(2, route.getStart_time());
+            call.setTimestamp(3, route.getEnd_time());
+            call.setInt(4, route.getAvailable_space());
+            call.setString(5, route.getType_payment());
+            call.setString(6, route.getPayment_amount());
+            call.setString(7, route.getStart_location());
+            call.setString(8,route.getRoad_name());
+            call.setString(9,route.getRelevant_location_1());
+            call.setString(10, route.getRelevant_location_2());
+            call.setString(11, route.getEnd_location());
+            call.setString(12, route.getPlate_number());
+
+            // Los parámetros de salida son parametros que se pueden consultar en el objeto llamada
+            // despues de ejecutar la llamada. Son útiles para retornar códigos de error o consultas.
+            call.registerOutParameter(13, java.sql.Types.NUMERIC);
+            
+            // Se ejecuta la llamada.
+            call = insertData(call);
+            
+            if (call == null){
+                return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
+            }
+            
+            // Se obtiene el código de respuesta del procedimiento (para verificar si hubo algún error en la ejecución).
+            // Este código lo puede utilizar para verificar que tipo de error hubo, y así poder generar un mensaje de error
+            // claro para el usuario sobre el error que sucedió.
+            int result_code = call.getInt(13);
+            
+            // Se cierra la conexión con la base de datos.
+            // ES IMPORTANTE QUE SIEMPRE QUE SE ABRA UNA CONEXIÓN LA CIERRE, PUES ESTAS NO SE CIERRAN 
+            // AUTOMÁTICAMENTE. 
+            call.getConnection().close();
+            call.close();
+            
+            // Se retorna el objeto respuesta.
+            // Para esta prueba, el código de error 0 significa que no hubo errores.
+            if (result_code != 0){
+                return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
+            }
+            return new Response(Response_code.SUCCESS, "Route successfully registered.");
+        } catch (SQLException e) {
+            return new Response(Response_code.ERROR, "Unexpected error happened, try again." + e.getMessage());
+        } 
     }
 }
