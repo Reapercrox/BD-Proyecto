@@ -4,6 +4,8 @@
  */
 package View;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author memis
@@ -32,7 +34,7 @@ public class Passenger1 extends javax.swing.JPanel implements java.beans.Customi
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        BT_booking = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -44,14 +46,14 @@ public class Passenger1 extends javax.swing.JPanel implements java.beans.Customi
         jLabel2.setForeground(new java.awt.Color(0, 51, 255));
         jLabel2.setText("Passenger");
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 255));
-        jButton1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Pick route");
-        jButton1.setToolTipText("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BT_booking.setBackground(new java.awt.Color(0, 51, 255));
+        BT_booking.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
+        BT_booking.setForeground(new java.awt.Color(255, 255, 255));
+        BT_booking.setText("Book ride");
+        BT_booking.setToolTipText("");
+        BT_booking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BT_bookingActionPerformed(evt);
             }
         });
 
@@ -81,7 +83,7 @@ public class Passenger1 extends javax.swing.JPanel implements java.beans.Customi
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BT_booking, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -94,7 +96,7 @@ public class Passenger1 extends javax.swing.JPanel implements java.beans.Customi
                 .addGap(40, 40, 40)
                 .addComponent(jLabel2)
                 .addGap(39, 39, 39)
-                .addComponent(jButton1)
+                .addComponent(BT_booking)
                 .addGap(28, 28, 28)
                 .addComponent(jButton2)
                 .addGap(29, 29, 29)
@@ -107,13 +109,14 @@ public class Passenger1 extends javax.swing.JPanel implements java.beans.Customi
         getAccessibleContext().setAccessibleName("Passenger Options");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void BT_bookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_bookingActionPerformed
+        JPanel booking = new Booking();
+        Main_window.render_panel(booking);
+    }//GEN-LAST:event_BT_bookingActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton BT_booking;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
