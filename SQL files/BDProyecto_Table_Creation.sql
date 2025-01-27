@@ -463,9 +463,9 @@ CREATE TABLE booking
 (
     id_booking NUMBER(6),
     boooking_date DATE CONSTRAINT booking_date_nn NOT NULL,
-    start_time NVARCHAR2(5) CONSTRAINT start_time_nn NOT NULL,
-    end_time NVARCHAR2(5)CONSTRAINT end_time_nn NOT NULL,
-    total_estimated_time NVARCHAR2(5) CONSTRAINT tota_estimated_nn NOT NULL,
+    start_time TIMESTAMP CONSTRAINT start_time_nn NOT NULL,
+    end_time TIMESTAMP CONSTRAINT end_time_nn NOT NULL,
+    total_estimated_time INTERVAL DAY TO SECOND CONSTRAINT tota_estimated_nn NOT NULL,
     booking_comment NVARCHAR2(40) CONSTRAINT booking_comment_nn NOT NULL,
     id_passenger_fk NUMBER(6),
     id_route_fk NUMBER(6),
@@ -490,6 +490,7 @@ CONSTRAINT fk_booking_route FOREIGN KEY (id_route_fk) REFERENCES route(id_route)
 ALTER TABLE booking
 ADD
 CONSTRAINT fk_booking_key_location FOREIGN KEY (id_pickup_point_fk) REFERENCES key_location(id_key_location);
+
 
 -------------------------------------------------------------------------------------------------
 

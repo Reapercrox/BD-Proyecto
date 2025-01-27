@@ -4,6 +4,14 @@
  */
 package View;
 
+import Constants.Paging_values;
+import Constants.Response_code;
+import Control.Controller;
+import Formatters.Table_configurator;
+import Models.Response;
+import java.awt.Color;
+import java.util.ArrayList;
+
 /**
  *
  * @author memis
@@ -11,16 +19,57 @@ package View;
 public class Booking extends javax.swing.JPanel implements java.beans.Customizer {
     
     private Object bean;
+    
+    private int total_pages;
+    private int current_page = 1;
+    private ArrayList<String> all_data = new ArrayList<>();
+    private ArrayList<String> all_key_id = new ArrayList<>();
 
     /**
      * Creates new customizer Booking
      */
     public Booking() {
         initComponents();
+        configure_paging();
+        get_page();
     }
     
     public void setObject(Object bean) {
         this.bean = bean;
+    }
+    
+    
+    private void configure_paging(){
+        int persons_count = Controller.get_routes_count();
+        total_pages = Math.ceilDiv(persons_count, Paging_values.vehicle_paging);
+        if (total_pages == 0){
+            total_pages = 1;
+        }
+    }
+    
+    private void get_page(){
+        all_data.clear();
+        Response response = Controller.available_routes(Paging_values.vehicle_paging * current_page - Paging_values.vehicle_paging + 1, Paging_values.vehicle_paging * current_page);
+        if (response.getResponse_code() == Response_code.SUCCESS){
+            ArrayList<String> data = (ArrayList) response.getResponse_content();
+            ArrayList<String> dataFiltered = new ArrayList<>();
+            
+            for (int i = 0; i < data.size(); i+=10){
+                dataFiltered.add(data.get(i));
+                dataFiltered.add(data.get(i+1));
+                dataFiltered.add(data.get(i+2));
+                dataFiltered.add(data.get(i+3));
+                dataFiltered.add(data.get(i+4));
+                dataFiltered.add(data.get(i+5));
+                dataFiltered.add(data.get(i+6));
+                dataFiltered.add(data.get(i+7));
+                all_data.add(data.get(i+8));
+                all_key_id.add(data.get(i+9));
+            }
+            
+            String[] header = {"Date", "Start time", "End time", "Estimated duration", "Starting locale", "Main Road", "Passing by 1", "Passing by 2",};
+            TB_routes = Table_configurator.setData(TB_routes, header, dataFiltered);
+        }
     }
 
     /**
@@ -32,132 +81,164 @@ public class Booking extends javax.swing.JPanel implements java.beans.Customizer
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        BT_book = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jLabel3 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        TB_routes = new javax.swing.JTable();
+        BT_previous = new javax.swing.JButton();
+        BT_next = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        FT_comment = new javax.swing.JTextField();
+        LB_error_message = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 24)); // NOI18N
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setText("Booking");
 
-        jLabel2.setText("Available trips");
-
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        BT_book.setBackground(new java.awt.Color(0, 0, 255));
+        BT_book.setForeground(new java.awt.Color(255, 255, 255));
+        BT_book.setText("Book trip");
+        BT_book.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BT_bookActionPerformed(evt);
+            }
         });
-        jScrollPane1.setViewportView(jList1);
 
-        jLabel3.setText("Date:");
+        jLabel7.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
+        jLabel7.setText("Available trips");
 
-        jFormattedTextField1.setText("jFormattedTextField1");
+        TB_routes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(TB_routes);
 
-        jLabel4.setText("Time:");
+        BT_previous.setText("Previous");
+        BT_previous.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BT_previousActionPerformed(evt);
+            }
+        });
 
-        jFormattedTextField2.setText("jFormattedTextField2");
+        BT_next.setText("Next");
+        BT_next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BT_nextActionPerformed(evt);
+            }
+        });
 
-        jLabel5.setText("Start place:");
+        jLabel2.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        jLabel2.setText("Message to driver:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel6.setText("End place:");
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jButton1.setBackground(new java.awt.Color(0, 0, 255));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Book trip");
+        FT_comment.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
-                                .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(62, 62, 62)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(289, 289, 289))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(255, 255, 255))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(68, 68, 68))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(255, 573, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BT_previous)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BT_next)
+                                .addGap(429, 429, 429)
+                                .addComponent(BT_book))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(LB_error_message, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(FT_comment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(39, 39, 39)
                 .addComponent(jLabel1)
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addGap(5, 5, 5)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(FT_comment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BT_book)
+                    .addComponent(BT_previous)
+                    .addComponent(BT_next))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(LB_error_message, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BT_previousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_previousActionPerformed
+        if (current_page != 1){
+            current_page -= 1;
+            get_page();
+        }
+    }//GEN-LAST:event_BT_previousActionPerformed
+
+    private void BT_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_nextActionPerformed
+        if (current_page != total_pages){
+            current_page += 1;
+            get_page();
+        }
+    }//GEN-LAST:event_BT_nextActionPerformed
+
+    private void BT_bookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_bookActionPerformed
+        int route = TB_routes.getSelectedRow();
+        int key = TB_routes.getSelectedRow();
+        
+        int route_id = Integer.parseInt(all_data.get(route));
+        int key_id = Integer.parseInt(all_key_id.get(key));
+        String comment  = FT_comment.getText();
+        
+        Response response = Controller.insert_booking(route_id, key_id, comment);
+        
+        LB_error_message.setText(response.getMessage());
+        LB_error_message.setForeground(Color.red);
+        if (response.getResponse_code() == Response_code.SUCCESS){
+            LB_error_message.setForeground(Color.black);
+        }
+        LB_error_message.setVisible(true);
+        
+        
+    }//GEN-LAST:event_BT_bookActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
+    private javax.swing.JButton BT_book;
+    private javax.swing.JButton BT_next;
+    private javax.swing.JButton BT_previous;
+    private javax.swing.JTextField FT_comment;
+    private javax.swing.JLabel LB_error_message;
+    private javax.swing.JTable TB_routes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -57,4 +57,16 @@ public class Controller {
         return Database_connection.insert_route(route);
     }
     
+    public static Response available_routes(int first_row, int last_row){
+        return Database_connection.get_route(first_row, last_row);
+    }
+    
+    public static int get_routes_count(){
+        return Database_connection.get_routes_count();
+    }
+    
+    public static Response insert_booking(int id_route, int id_key, String comment){
+        return Database_connection.insert_booking(id_route, id_key, comment);
+    }
+    
 }

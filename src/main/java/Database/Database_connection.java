@@ -40,6 +40,7 @@ public class Database_connection {
             call.executeUpdate();
             return call;
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         } 
     }
@@ -334,7 +335,7 @@ public class Database_connection {
         }
         catch (SQLException e){
             e.printStackTrace();
-            return new Response(Response_code.ERROR, "Ocurrió un error inesperado, intente de nuevo.");
+            return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
         }
     }
     
@@ -394,4 +395,103 @@ public class Database_connection {
             return new Response(Response_code.ERROR, "Unexpected error happened, try again." + e.getMessage());
         } 
     }
+    
+    
+    public static int get_routes_count(){
+        // A diferencia de los métodos anteriores, en este se utiliza una función (no un procedimiento)
+        // por lo que note la diferencia con respecto al statement.
+        String statement = "{call ADM.get_routes_count(?)}";
+        Connection DBconnection = getConnection();
+        try {
+            CallableStatement call = DBconnection.prepareCall(statement); 
+            // El resultado que retorna la función se toma como parámetro de salida.
+            call.registerOutParameter(1, java.sql.Types.NUMERIC);
+            call = queryData(call);
+            int count = call.getInt(1);
+            call.getConnection().close();
+            call.close();
+            return count;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
+    
+    public static Response get_route(int first_row, int last_row){
+        String statement = "{call available_routes(?,?,?)}";
+        Connection DBconnection = getConnection();
+        try {
+            CallableStatement call = DBconnection.prepareCall(statement);
+            call.setInt(1, first_row);
+            call.setInt(2, last_row);
+            call.registerOutParameter(3, OracleTypes.CURSOR);
+            
+            call = queryData(call);
+            
+            // Cuando se obtiene un cursor de un parámetro de salida, el resultado del mismo
+            // se puede almacenar en un objeto ResultSet, el cual se puede recorrer con un ciclo
+            // para obtener los datos retornados por la consulta, y guardarlos, por ejemplo, en una lista.
+            ResultSet resultSet = (ResultSet) call.getObject(3);
+            ArrayList<String> result = new ArrayList<>();
+            while (resultSet.next()) {
+                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                    result.add(resultSet.getString(i));
+                }
+            }
+            
+            // NO OLVIDE CERRAR EL CURSOR Y LA CONEXIÓN.
+            resultSet.close();
+            call.getConnection().close();
+            call.close();
+            
+            return new Response(Response_code.SUCCESS, "", result);    
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
+        }
+    }
+    
+    
+    public static Response insert_booking(int id_route, int id_key, String comment){
+        String statement = "{call insert_booking(?,?,?,?)}";
+        Connection DBconnection = getConnection();
+        try {
+            CallableStatement call = DBconnection.prepareCall(statement);
+            call.setInt(1, id_route);
+            call.setInt(2, id_key);
+            call.setString(3, comment);
+            call.registerOutParameter(4, java.sql.Types.NUMERIC);
+            
+            call = insertData(call);
+            
+            if (call == null){
+                return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
+            }
+            
+            // Se obtiene el código de respuesta del procedimiento (para verificar si hubo algún error en la ejecución).
+            // Este código lo puede utilizar para verificar que tipo de error hubo, y así poder generar un mensaje de error
+            // claro para el usuario sobre el error que sucedió.
+            int result_code = call.getInt(4);
+            
+            // Se cierra la conexión con la base de datos.
+            // ES IMPORTANTE QUE SIEMPRE QUE SE ABRA UNA CONEXIÓN LA CIERRE, PUES ESTAS NO SE CIERRAN 
+            // AUTOMÁTICAMENTE. 
+            call.getConnection().close();
+            call.close();
+            
+            // Se retorna el objeto respuesta.
+            // Para esta prueba, el código de error 0 significa que no hubo errores.
+            if (result_code != 0){
+                return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
+            }
+            return new Response(Response_code.SUCCESS, "Route successfully registered.");
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return new Response(Response_code.ERROR, "Unexpected error happened, try again.");
+        }
+    }
+    
 }
