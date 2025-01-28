@@ -338,19 +338,49 @@ public class Route_panel extends javax.swing.JPanel implements java.beans.Custom
         Timestamp startStamp = Timestamp.valueOf(startDateTime);
         Timestamp endStamp = Timestamp.valueOf(endDateTime);
         
-        Route route = new Route(FF_date.getText(),startStamp, endStamp,
-                                (int)SP_space.getValue(), (String)CB_payment.getSelectedItem(),FF_amount.getText(), FT_starting_point.getText(),
-                                FT_main_point.getText(), FT_spot_1.getText(), FT_spot_2.getText(), (String)CB_end_point.getSelectedItem(),plate_Number);
-        
-        Response response = Controller.insert_route(route);
-        
-        LB_output_message.setText(response.getMessage());
-        LB_output_message.setForeground(Color.red);
-        if (response.getResponse_code() == Response_code.SUCCESS){
-            LB_output_message.setForeground(Color.black);
-            clean_fields();
+        try{
+            if(Integer.parseInt(FF_amount.getText())>0){
+                if( date.isAfter(LocalDate.now())){
+                    if(startStamp.before(endStamp)){
+                        Route route = new Route(FF_date.getText(),startStamp, endStamp,
+                                                (int)SP_space.getValue(), (String)CB_payment.getSelectedItem(),FF_amount.getText(), FT_starting_point.getText(),
+                                                FT_main_point.getText(), FT_spot_1.getText(), FT_spot_2.getText(), (String)CB_end_point.getSelectedItem(),plate_Number);
+
+                        Response response = Controller.insert_route(route);
+
+                        LB_output_message.setText(response.getMessage());
+                        LB_output_message.setForeground(Color.red);
+                        if (response.getResponse_code() == Response_code.SUCCESS){
+                            LB_output_message.setForeground(Color.black);
+                            clean_fields();
+                        }
+                        LB_output_message.setVisible(true);
+                    }
+                    else{
+                        LB_output_message.setText("End time cannot be less than start time");
+                        LB_output_message.setForeground(Color.red);
+                        LB_output_message.setVisible(true);
+                    }
+                }
+            else{
+                LB_output_message.setText("Date cannot be less than today date");
+                LB_output_message.setForeground(Color.red);
+                LB_output_message.setVisible(true);
+                }
+            }
+            else{
+                LB_output_message.setText("Amount needs to be valid");
+                LB_output_message.setForeground(Color.red);
+                LB_output_message.setVisible(true);
+            }
+        }catch(NumberFormatException e){
+            LB_output_message.setText("Error ocurred, try again");
+            LB_output_message.setForeground(Color.red);
+            LB_output_message.setVisible(true);
         }
-        LB_output_message.setVisible(true);
+
+        
+        
     }//GEN-LAST:event_BT_submitActionPerformed
 
     private void CB_vehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_vehicleActionPerformed

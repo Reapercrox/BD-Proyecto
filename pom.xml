@@ -20,6 +20,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>23</maven.compiler.release>
-        <exec.mainClass>View.User_access</exec.mainClass>
+        <exec.mainClass>View.Main_window</exec.mainClass>
     </properties>
 </project>
