@@ -69,4 +69,8 @@ public class Controller {
         return Database_connection.insert_booking(id_route, id_key, comment);
     }
     
+    public static Response get_t_c(){
+        return Database_connection.get_t_c();
+    }
+    
 }

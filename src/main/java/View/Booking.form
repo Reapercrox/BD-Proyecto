@@ -37,16 +37,23 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="670" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="BT_previous" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="BT_next" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="429" max="-2" attributes="0"/>
-                              <Component id="BT_book" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="LB_error_message" alignment="0" max="32767" attributes="0"/>
-                              <Component id="FT_comment" alignment="0" pref="400" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="BT_previous" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="BT_next" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="LB_error_message" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="FT_comment" alignment="0" pref="400" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="187" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="BT_book" max="32767" attributes="0"/>
+                                  <Component id="BT_go_back" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -65,17 +72,25 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="204" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="FT_comment" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="BT_book" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="BT_previous" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="BT_next" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="FT_comment" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="BT_book" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="BT_previous" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="BT_next" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="25" max="32767" attributes="0"/>
+                      <Component id="LB_error_message" min="-2" pref="16" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="BT_go_back" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="25" max="32767" attributes="0"/>
-              <Component id="LB_error_message" min="-2" pref="16" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -166,6 +181,15 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="LB_error_message">
+    </Component>
+    <Component class="javax.swing.JButton" name="BT_go_back">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Go back"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BT_go_backActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

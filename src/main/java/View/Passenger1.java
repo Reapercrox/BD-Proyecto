@@ -4,6 +4,8 @@
  */
 package View;
 
+import Control.Controller;
+import Models.Response;
 import javax.swing.JPanel;
 
 /**
@@ -71,6 +73,11 @@ public class Passenger1 extends javax.swing.JPanel implements java.beans.Customi
         jButton4.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Log out");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -113,6 +120,12 @@ public class Passenger1 extends javax.swing.JPanel implements java.beans.Customi
         JPanel booking = new Booking();
         Main_window.render_panel(booking);
     }//GEN-LAST:event_BT_bookingActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        Response response = Controller.log_out();
+        JPanel log_in = new Login_panel();
+        Main_window.render_panel(log_in);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

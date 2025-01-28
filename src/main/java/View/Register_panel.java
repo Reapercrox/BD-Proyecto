@@ -9,13 +9,22 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author memis
  */
 public class Register_panel extends javax.swing.JPanel {
+    
+    private boolean isTermsDialogShown = false;
     
     
     private void clean_fields(){
@@ -104,6 +113,7 @@ public class Register_panel extends javax.swing.JPanel {
         jLabel23 = new javax.swing.JLabel();
         LB_registration_message = new javax.swing.JLabel();
         BT_go_back = new javax.swing.JButton();
+        CB_admin = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(650, 600));
@@ -288,6 +298,16 @@ public class Register_panel extends javax.swing.JPanel {
             }
         });
 
+        CB_admin.setBackground(new java.awt.Color(255, 255, 255));
+        CB_admin.setForeground(new java.awt.Color(255, 255, 255));
+        CB_admin.setToolTipText("");
+        CB_admin.setBorder(null);
+        CB_admin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CB_adminActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -382,7 +402,8 @@ public class Register_panel extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(register_terms_bt, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(register_terms_bt, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(CB_admin))
                 .addGap(0, 122, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -487,9 +508,11 @@ public class Register_panel extends javax.swing.JPanel {
                     .addComponent(register_sign_up_bt)
                     .addComponent(BT_go_back)
                     .addComponent(LB_registration_message))
-                .addGap(55, 55, 55)
+                .addGap(18, 18, 18)
+                .addComponent(CB_admin)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel23)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         FT_second_name.getAccessibleContext().setAccessibleName("FT_second_name");
@@ -534,7 +557,38 @@ public class Register_panel extends javax.swing.JPanel {
     }//GEN-LAST:event_license_formatedActionPerformed
 
     private void register_terms_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_register_terms_btActionPerformed
-        // TODO add your handling code here:
+        Response response = Controller.get_t_c();
+        
+        if (!isTermsDialogShown) {
+            JDialog termsDialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Terms and Conditions", true);
+            termsDialog.setSize(400, 300);
+            termsDialog.setLocationRelativeTo(this); 
+
+            JTextArea termsTextArea = new JTextArea();
+            termsTextArea.setText(response.getMessage());
+            termsTextArea.setEditable(false); 
+            termsTextArea.setLineWrap(true);
+            termsTextArea.setWrapStyleWord(true);
+
+           
+            JScrollPane scrollPane = new JScrollPane(termsTextArea);
+            termsDialog.add(scrollPane, BorderLayout.CENTER);
+
+          
+            JButton closeButton = new JButton("Go back");
+            closeButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    termsDialog.dispose(); 
+                }
+            });
+            termsDialog.add(closeButton, BorderLayout.SOUTH);
+
+            termsDialog.setVisible(true); 
+            isTermsDialogShown = true;
+    } else {
+        JOptionPane.showMessageDialog(this, "The terms and conditions have already been shown.");
+    }
     }//GEN-LAST:event_register_terms_btActionPerformed
 
     private void accepts_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accepts_checkActionPerformed
@@ -563,7 +617,18 @@ public class Register_panel extends javax.swing.JPanel {
                     FT_district.getText(),(String)CB_Municipality.getSelectedItem(), FT_exact_address.getText(), FT_zip_code.getText(),
                     CB_type_user.getSelectedIndex(), license_formated.getText(), expiration_date.getText()
                     );
-        } 
+        }
+        
+        if(CB_admin.isSelected()){
+            person = new Person(FT_first_name.getText(), FT_second_name.getText(), FT_last_name.getText(), FT_second_last.getText(),
+                    birthday_formatted.getText(), FT_Institution_Email.getText(), FT_password_register.getText(),
+                    isChecked, CB_Gender.getSelectedIndex(), CB_institution.getSelectedIndex(),
+                    CB_type_id.getSelectedIndex(), FT_Id_Number.getText(), 0,
+                    CB_Country.getSelectedIndex(), CB_Province.getSelectedIndex()+1,
+                    FT_district.getText(),(String)CB_Municipality.getSelectedItem(), FT_exact_address.getText(), FT_zip_code.getText(),
+                    2, license_formated.getText(), expiration_date.getText()
+                    );
+        }
 
         Response response = Controller.register_person(person);
         LB_registration_message.setText(response.getMessage());
@@ -591,6 +656,10 @@ public class Register_panel extends javax.swing.JPanel {
          JPanel login = new Login_panel();
          Main_window.render_panel(login);
     }//GEN-LAST:event_BT_go_backActionPerformed
+
+    private void CB_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_adminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CB_adminActionPerformed
 
     
     private void updateItemsCB_Municipality(){
@@ -708,6 +777,7 @@ public class Register_panel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> CB_Gender;
     private javax.swing.JComboBox<String> CB_Municipality;
     private javax.swing.JComboBox<String> CB_Province;
+    private javax.swing.JCheckBox CB_admin;
     private javax.swing.JComboBox<String> CB_institution;
     private javax.swing.JComboBox<String> CB_type_id;
     private javax.swing.JComboBox<String> CB_type_user;

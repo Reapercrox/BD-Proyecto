@@ -4,6 +4,10 @@
  */
 package View;
 
+import Control.Controller;
+import Models.Response;
+import javax.swing.JPanel;
+
 /**
  *
  * @author memis
@@ -31,10 +35,74 @@ public class Admin1 extends javax.swing.JPanel implements java.beans.Customizer 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setLayout(new java.awt.BorderLayout());
+        jLabel1 = new javax.swing.JLabel();
+        BT_query_passengers = new javax.swing.JButton();
+        BT_go_back = new javax.swing.JButton();
+        BT_query_drivers = new javax.swing.JButton();
+
+        jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel1.setText("ADMIN");
+
+        BT_query_passengers.setBackground(new java.awt.Color(0, 0, 255));
+        BT_query_passengers.setForeground(new java.awt.Color(255, 255, 255));
+        BT_query_passengers.setText("Query Passengers");
+
+        BT_go_back.setBackground(new java.awt.Color(0, 0, 255));
+        BT_go_back.setForeground(new java.awt.Color(255, 255, 255));
+        BT_go_back.setText("Log out");
+        BT_go_back.setToolTipText("");
+        BT_go_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BT_go_backActionPerformed(evt);
+            }
+        });
+
+        BT_query_drivers.setBackground(new java.awt.Color(0, 0, 255));
+        BT_query_drivers.setForeground(new java.awt.Color(255, 255, 255));
+        BT_query_drivers.setText("Query drivers");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(231, 231, 231)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BT_go_back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BT_query_passengers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BT_query_drivers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(234, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(jLabel1)
+                .addGap(40, 40, 40)
+                .addComponent(BT_query_passengers)
+                .addGap(18, 18, 18)
+                .addComponent(BT_query_drivers)
+                .addGap(110, 110, 110)
+                .addComponent(BT_go_back)
+                .addContainerGap(218, Short.MAX_VALUE))
+        );
+
+        BT_query_drivers.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BT_go_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_go_backActionPerformed
+        Response response = Controller.log_out();
+        JPanel log_in = new Login_panel();
+        Main_window.render_panel(log_in);
+    }//GEN-LAST:event_BT_go_backActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BT_go_back;
+    private javax.swing.JButton BT_query_drivers;
+    private javax.swing.JButton BT_query_passengers;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
